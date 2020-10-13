@@ -4,7 +4,7 @@ import { NavLink } from "react-router-dom";
 
 function Auth() {
   return (
-    <div className="wrapper fadeInDown">
+    <div className="wrapper">
       <div id="formContent">
         <p>Connectez-vous</p>
         <form>

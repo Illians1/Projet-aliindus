@@ -14,13 +14,14 @@ function NavBar() {
     <>
       <header>
         <Navbar bg="light" className="justify-content-between" expand="lg">
-          <Navbar.Brand href="google.com">
+          <Navbar.Brand className="navbar-brand" href="google.com">
             <img
               className="logo"
               alt="logo"
               src={require("../images/aliindustrie.jpg")}
             ></img>
           </Navbar.Brand>
+          <span className="title"> Gestion des bons de livraison</span>
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
           <Nav className="group-nav d-flex justify-content-around">
             <a

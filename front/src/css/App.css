@@ -1,44 +1,23 @@
-.App {
-  text-align: center;
+body {
+  background-color: black;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+/* NavBar component */
+
+header {
+  height: 10vh;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+.navbar {
+  height: 100%;
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
-}
-
-.App-link {
-  color: #61dafb;
-}
-
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.navbar-brand {
+  height: 100%;
 }
 
 .logo {
-  height: 80px;
+  height: 100%;
   width: auto;
 }
 
@@ -59,6 +38,12 @@
   margin-right: 5%;
 }
 
+.title {
+  font-weight: 700;
+  font-size: 40px;
+}
+
+/* Auth component */
 /* STRUCTURE */
 
 .wrapper p {
@@ -73,9 +58,8 @@
   flex-direction: column;
   justify-content: center;
   width: 100%;
-  min-height: 100%;
+  height: 80vh;
   padding: 20px;
-  margin-top: 120px;
 }
 
 #formContent {
@@ -183,11 +167,89 @@ input[type="text"]:focus {
 input[type="text"]:placeholder {
   color: #cccccc;
 }
+/* BonLivraison component */
+
+/* HistoqueBL component */
+
+.historique-bl {
+  border: 0.25vh solid black;
+  min-height: 75vh;
+  margin: 2.2vh 2.5%;
+  border-radius: 15px;
+  width: 25%;
+  background-color: #fff;
+  display: inline-block;
+}
+
+.texte-historique {
+  margin: 10%;
+  padding: 15px;
+}
+
+.header-historique {
+  font-weight: 700;
+  font-size: 15px;
+  margin-bottom: 10px;
+}
+
+.dropdown {
+  display: inline-block;
+}
+.historique-checkbox {
+  display: inline-block;
+  margin-top: 5px;
+}
+
+#dropdown-basic-button {
+  background-color: #165b8d;
+  border-color: black;
+  display: inline;
+}
+
+.arrow-list {
+  font-size: 25px;
+}
+
+.title-list {
+  font-weight: 800;
+}
+
+.title-list:hover {
+  cursor: pointer;
+  text-decoration: underline;
+}
+
+.list-historique {
+  font-weight: 700;
+}
+
+.num-carnet {
+  color: #ff4a47;
+}
+.num-bl {
+  color: #73ab7f;
+}
+
+.nom-client {
+  color: #1b73b1;
+}
+
+/* NouveauBL component */
+
+.nouveau-bl {
+  border: 0.25vh solid black;
+  margin: 2.2vh 2.5% 2.2vh 0;
+  border-radius: 15px;
+  width: 67.5%;
+  background-color: #fff;
+  height: 75vh;
+  float: right;
+}
+
+/* Footer component */
 
 footer {
-  height: 100px;
-  position: absolute;
-  bottom: 0;
+  height: 10vh;
   width: 100%;
 }
 
