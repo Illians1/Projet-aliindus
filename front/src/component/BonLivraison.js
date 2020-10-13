@@ -1,12 +1,12 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import "../css/App.css";
 import HistoriqueBL from "./HistoriqueBL";
 import NouveauBL from "./NouveauBL";
 
-function BonLivraison() {
+function BonLivraison(props) {
   return (
     <>
-      <HistoriqueBL />
+      <HistoriqueBL filtre={props.match.params.filter} />
       <NouveauBL />
     </>
   );

@@ -169,7 +169,7 @@ input[type="text"]:placeholder {
 }
 /* BonLivraison component */
 
-/* HistoqueBL component */
+/* HistoriqueBL component */
 
 .historique-bl {
   border: 0.25vh solid black;
@@ -224,14 +224,18 @@ input[type="text"]:placeholder {
 }
 
 .num-carnet {
-  color: #ff4a47;
+  color: #1b73b1;
 }
 .num-bl {
   color: #73ab7f;
 }
 
+.date-BL {
+  color: #ff4a47;
+}
+
 .nom-client {
-  color: #1b73b1;
+  color: #8f3c00;
 }
 
 /* NouveauBL component */

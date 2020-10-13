@@ -15,7 +15,7 @@ function App() {
           <Switch>
             <Route path="/auth" render={(props) => <Auth {...props} />} />
             <Route
-              path="/gestion-BL"
+              path="/bl/:filter?"
               render={(props) => <BonLivraison {...props} />}
             />
           </Switch>
