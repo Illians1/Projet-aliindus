@@ -169,6 +169,15 @@ input[type="text"]:placeholder {
 }
 /* BonLivraison component */
 
+.div-filtre {
+  width: 80%;
+  display: inline-block;
+}
+
+.filtre {
+  border: solid 1px black;
+}
+
 /* HistoriqueBL component */
 
 .historique-bl {
@@ -236,6 +245,14 @@ input[type="text"]:placeholder {
 
 .nom-client {
   color: #8f3c00;
+}
+
+.valide-check {
+  font-size: 18px;
+  margin-bottom: 4px;
+}
+.valide-check:hover {
+  cursor: pointer;
 }
 
 /* NouveauBL component */

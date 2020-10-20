@@ -20,6 +20,6 @@ app.use((req, res, next) => {
 
 app.use(bodyParser.json());
 
-app.use("/api/bl", BLRoutes);
+app.use("/api", BLRoutes);
 
 module.exports = app;

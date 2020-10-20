@@ -1,42 +1,54 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useContext } from "react";
 import "../css/App.css";
-import { RiArrowRightSFill, RiArrowDownSFill } from "react-icons/ri";
 import axios from "axios";
+import {
+  RiArrowRightSFill,
+  RiArrowDownSFill,
+  RiCheckboxBlankLine,
+  RiCheckboxLine,
+} from "react-icons/ri";
+import ContextBL from "./ContextBL";
 
 function TriParDate(props) {
+  const { affichageBL, setListBL, setAffichageBL } = useContext(ContextBL);
+
   useEffect(() => {
-    props.changeButton("Date de création");
     const fetchData = async () => {
-      const result = await axios.get(`http://localhost:3000/api/BL`);
-      props.triBL(result.data.results);
+      const result = await axios.get(`http://localhost:3000/api/bl`);
+      setListBL(result.data.results);
+      setAffichageBL(result.data.results);
     };
+    props.changeButton("Date de création");
     fetchData();
   }, []);
-
   const toggleDate = (e) => {
-    const newBL = new Array();
-    props.listBL.forEach((element) => {
-      if (element.date == e.target.innerHTML) {
-        element.visible != false
+    const newBL = [];
+    affichageBL.forEach((element) => {
+      if (element.date === e.target.innerHTML) {
+        element.visible !== false
           ? (element.visible = false)
           : (element.visible = true);
       }
       newBL.push(element);
     });
-    props.triBL(newBL);
+    setAffichageBL(newBL);
+  };
+
+  const changeValide = (e) => {
+    props.changeValide(e);
   };
 
   return (
     <>
-      {props.listBL.map((item, index) => (
+      {affichageBL.map((item, index) => (
         <div key={index}>
           {index > 0 ? (
-            props.listBL[index].date == props.listBL[index - 1].date ? (
+            affichageBL[index].date === affichageBL[index - 1].date ? (
               ""
             ) : (
               <li className="title-list">
                 <span onClick={(e) => toggleDate(e)}>{item.date}</span>
-                {item.visible == false ? (
+                {item.visible === false ? (
                   <RiArrowDownSFill className="arrow-list"></RiArrowDownSFill>
                 ) : (
                   <RiArrowRightSFill className="arrow-list"></RiArrowRightSFill>
@@ -46,14 +58,14 @@ function TriParDate(props) {
           ) : (
             <li className="title-list">
               <span onClick={(e) => toggleDate(e)}>{item.date}</span>
-              {item.visible == false ? (
+              {item.visible === false ? (
                 <RiArrowDownSFill className="arrow-list"></RiArrowDownSFill>
               ) : (
                 <RiArrowRightSFill className="arrow-list"></RiArrowRightSFill>
               )}
             </li>
           )}
-          {item.visible == false ? (
+          {item.visible === false ? (
             ""
           ) : (
             <ul id={item.id} className="list-historique">
@@ -61,7 +73,7 @@ function TriParDate(props) {
                 <div>
                   <div>
                     Numéro Carnet :{" "}
-                    {item.numeroCarnet == null ? (
+                    {item.numeroCarnet === null ? (
                       <span className="num-carnet">? </span>
                     ) : (
                       <span className="num-carnet">{item.numeroCarnet} </span>
@@ -69,7 +81,7 @@ function TriParDate(props) {
                   </div>
                   <div>
                     Numéro BL :{" "}
-                    {item.numeroBl == null ? (
+                    {item.numeroBl === null ? (
                       <span className="num-bl">? </span>
                     ) : (
                       <span className="num-bl">{item.numeroBl} </span>
@@ -78,10 +90,26 @@ function TriParDate(props) {
                 </div>
                 <div>
                   Client :{" "}
-                  {item.nomClient == null ? (
+                  {item.nomClient === null ? (
                     <span className="nom-client">? </span>
                   ) : (
                     <span className="nom-client">{item.nomClient} </span>
+                  )}
+                </div>
+                <div>
+                  <span>Validé ? </span>
+                  {item.valide === "oui" ? (
+                    <RiCheckboxLine
+                      data-id={item.id}
+                      onClick={(e) => changeValide(e)}
+                      className="valide-check"
+                    ></RiCheckboxLine>
+                  ) : (
+                    <RiCheckboxBlankLine
+                      data-id={item.id}
+                      onClick={(e) => changeValide(e)}
+                      className="valide-check"
+                    ></RiCheckboxBlankLine>
                   )}
                 </div>
               </li>

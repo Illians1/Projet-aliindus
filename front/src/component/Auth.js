@@ -1,6 +1,5 @@
 import React from "react";
 import "../css/App.css";
-import { NavLink } from "react-router-dom";
 
 function Auth() {
   return (
