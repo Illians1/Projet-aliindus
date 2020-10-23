@@ -115,7 +115,7 @@ function LeftElementHeader(props) {
             onChange={(e) => filter(e)}
             className="border border-primary"
             type="text"
-            placeholder="Filtrer"
+            placeholder="Filtre"
           />
         </div>
       </div>

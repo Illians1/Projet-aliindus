@@ -4,8 +4,16 @@ body {
 
 /* NavBar component */
 
+a {
+  font-weight: bold;
+}
 header {
   height: 10vh;
+}
+
+h1 {
+  text-align: center;
+  color: #165b8d;
 }
 
 .navbar {
@@ -147,8 +155,7 @@ input[type="text"] {
   text-decoration: none;
   display: inline-block;
   font-size: 16px;
-  margin: 15px;
-  width: 85%;
+  margin: 10px;
   border: 2px solid #f6f6f6;
   -webkit-transition: all 0.5s ease-in-out;
   -moz-transition: all 0.5s ease-in-out;
@@ -157,6 +164,14 @@ input[type="text"] {
   transition: all 0.5s ease-in-out;
   -webkit-border-radius: 5px 5px 5px 5px;
   border-radius: 5px 5px 5px 5px;
+}
+.select {
+  margin: 10px;
+}
+
+.inputTextAuth {
+  width: 85%;
+  margin: 15px;
 }
 
 input[type="text"]:focus {
@@ -265,6 +280,24 @@ input[type="text"]:placeholder {
   background-color: #fff;
   height: 75vh;
   float: right;
+}
+
+.nouveau-bl-child {
+  margin: 5% 20%;
+}
+
+.form-new-bl {
+  margin-top: 50px;
+}
+
+.button-create-bl {
+  margin-top: 20px;
+  width: 40%;
+}
+
+label {
+  font-weight: bold;
+  text-align: center;
 }
 
 /* Footer component */

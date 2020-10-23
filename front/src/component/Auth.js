@@ -10,7 +10,7 @@ function Auth() {
           <input
             type="text"
             id="login"
-            className="fadeIn second"
+            className="inputTextAuth"
             name="login"
             placeholder="Nom de compte"
           />

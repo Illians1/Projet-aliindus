@@ -24,7 +24,6 @@ function App() {
     listClients,
     listUsers,
   };
-  console.log(listUsers);
   return (
     <div style={{ background: "#B8B8B7" }}>
       <BrowserRouter>
