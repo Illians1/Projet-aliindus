@@ -17,7 +17,7 @@ function DropdownClients(props) {
         placeholder="Nom du client"
         list="client"
         name="client"
-        onChange={(e) => props.setFormData(e.target.name, e.target.value)}
+        onChange={props.setFormData}
         required
       />
       <datalist id="client">

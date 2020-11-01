@@ -1,42 +1,23 @@
 import React, { useEffect, useContext } from "react";
 import "../css/App.css";
 import axios from "axios";
-import {
-  RiArrowRightSFill,
-  RiArrowDownSFill,
-  RiCheckboxBlankLine,
-  RiCheckboxLine,
-} from "react-icons/ri";
 import ContextBL from "./ContextBL";
+import ModifyBL from "./ModifyBL";
+import TitleListBL from "./TitleListBL";
+import ValidBL from "./ValidBL";
 
 function TriParDate(props) {
   const { affichageBL, setListBL, setAffichageBL } = useContext(ContextBL);
 
   useEffect(() => {
     const fetchData = async () => {
-      const result = await axios.get(`http://localhost:3000/api/bl`);
+      const result = await axios.get(`http://localhost:3001/api/bl`);
       setListBL(result.data.results);
       setAffichageBL(result.data.results);
     };
     props.changeButton("Date de création");
     fetchData();
-  }, []);
-  const toggleDate = (e) => {
-    const newBL = [];
-    affichageBL.forEach((element) => {
-      if (element.date === e.target.innerHTML) {
-        element.visible !== false
-          ? (element.visible = false)
-          : (element.visible = true);
-      }
-      newBL.push(element);
-    });
-    setAffichageBL(newBL);
-  };
-
-  const changeValide = (e) => {
-    props.changeValide(e);
-  };
+  });
 
   return (
     <>
@@ -46,24 +27,10 @@ function TriParDate(props) {
             affichageBL[index].date === affichageBL[index - 1].date ? (
               ""
             ) : (
-              <li className="title-list">
-                <span onClick={(e) => toggleDate(e)}>{item.date}</span>
-                {item.visible === false ? (
-                  <RiArrowDownSFill className="arrow-list"></RiArrowDownSFill>
-                ) : (
-                  <RiArrowRightSFill className="arrow-list"></RiArrowRightSFill>
-                )}
-              </li>
+              <TitleListBL type={"date"} item={item} />
             )
           ) : (
-            <li className="title-list">
-              <span onClick={(e) => toggleDate(e)}>{item.date}</span>
-              {item.visible === false ? (
-                <RiArrowDownSFill className="arrow-list"></RiArrowDownSFill>
-              ) : (
-                <RiArrowRightSFill className="arrow-list"></RiArrowRightSFill>
-              )}
-            </li>
+            <TitleListBL type={"date"} item={item} />
           )}
           {item.visible === false ? (
             ""
@@ -97,20 +64,8 @@ function TriParDate(props) {
                   )}
                 </div>
                 <div>
-                  <span>Validé ? </span>
-                  {item.valide === "oui" ? (
-                    <RiCheckboxLine
-                      data-id={item.id}
-                      onClick={(e) => changeValide(e)}
-                      className="valide-check"
-                    ></RiCheckboxLine>
-                  ) : (
-                    <RiCheckboxBlankLine
-                      data-id={item.id}
-                      onClick={(e) => changeValide(e)}
-                      className="valide-check"
-                    ></RiCheckboxBlankLine>
-                  )}
+                  <ValidBL item={item} />
+                  <ModifyBL item={item} />
                 </div>
               </li>
             </ul>

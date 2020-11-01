@@ -9,17 +9,16 @@ import ContextBL from "./ContextBL";
 function LeftElementHeader(props) {
   const [dateButton, setDateButton] = useState("Toutes les dates");
 
-  const { listBL, setAffichageBL } = useContext(ContextBL);
+  const { listBL, setAffichageBL, setAffichageValid } = useContext(ContextBL);
 
   const displayChecked = (e) => {
-    let filteredBL = [];
-    if (e.target.checked === false) {
-      filteredBL = listBL.filter((BL) => BL.valide !== "oui");
-      console.log(filteredBL);
+    if (e.target.checked === true) {
+      setAffichageValid(true);
+      console.log("check");
     } else {
-      filteredBL = listBL;
+      setAffichageValid(false);
+      console.log("nocheck");
     }
-    setAffichageBL(filteredBL);
   };
 
   const triDate = (code) => {
@@ -38,12 +37,12 @@ function LeftElementHeader(props) {
     switch (code) {
       case "mois": {
         filteredBL = listBL.filter((BL) => filtre(30, BL.date));
-        setDateButton("Ce mois-ci");
+        setDateButton("Moins d'un mois");
         break;
       }
       case "an": {
         filteredBL = listBL.filter((BL) => filtre(365, BL.date));
-        setDateButton("Cette année");
+        setDateButton("Moins d'un an");
         break;
       }
       default: {
@@ -97,14 +96,11 @@ function LeftElementHeader(props) {
       <div className="dropdown">
         <span>Trier par : </span>
         <DropdownButton id="dropdown-basic-button" title={props.button}>
-          <Link to="/bl" className="dropdown-item">
+          <Link to="/bl/bl" className="dropdown-item">
             Date de création
           </Link>
-          <Link to="/bl/client" className="dropdown-item">
+          <Link to="/bl/bl/client" className="dropdown-item">
             Client
-          </Link>
-          <Link to="/bl/employe" className="dropdown-item">
-            Employé
           </Link>
         </DropdownButton>
       </div>
@@ -112,7 +108,7 @@ function LeftElementHeader(props) {
         <span>Filtrer :</span>
         <div className="div-filtre">
           <Form.Control
-            onChange={(e) => filter(e)}
+            onChange={filter}
             className="border border-primary"
             type="text"
             placeholder="Filtre"

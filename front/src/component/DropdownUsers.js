@@ -18,7 +18,7 @@ function DropdownUsers(props) {
           placeholder="Nom de l'utilisateur"
           list="user"
           name="user"
-          onChange={(e) => props.setFormData(e.target.name, e.target.value)}
+          onChange={props.setFormData}
           required
         >
           {listUsers.map((item, index) => (

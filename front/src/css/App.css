@@ -265,8 +265,19 @@ input[type="text"]:placeholder {
 .valide-check {
   font-size: 18px;
   margin-bottom: 4px;
+  margin-right: 4px;
 }
 .valide-check:hover {
+  cursor: pointer;
+}
+
+.link-modif {
+  color: #0056b3;
+  font-weight: bold;
+}
+
+.link-modif:hover {
+  text-decoration: underline;
   cursor: pointer;
 }
 
@@ -298,6 +309,23 @@ input[type="text"]:placeholder {
 label {
   font-weight: bold;
   text-align: center;
+}
+
+.link-back-to-new {
+  position: relative;
+  top: 25px;
+  left: 45px;
+  color: #0056b3;
+  font-weight: bold;
+}
+
+.link-back-to-new:hover {
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+.arrow-back-to-new-bl {
+  font-size: 35px;
 }
 
 /* Footer component */

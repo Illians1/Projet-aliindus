@@ -1,4 +1,4 @@
-import React, { useState, useContext } from "react";
+import React, { useContext } from "react";
 import "../css/App.css";
 import Form from "react-bootstrap/Form";
 import Row from "react-bootstrap/Row";
@@ -8,40 +8,35 @@ import DropdownUsers from "./DropdownUsers";
 import Button from "react-bootstrap/Button";
 import axios from "axios";
 import ContextClientsUsers from "./ContextClientsUsers";
+import ContextBL from "./ContextBL";
+import { BsArrowLeftShort } from "react-icons/bs";
 
-function NouveauBL() {
+function RightBlockBL() {
   const { listUsers, listClients } = useContext(ContextClientsUsers);
+  const {
+    affichageBloc,
+    setAffichageBloc,
+    formData,
+    setFormData,
+    todayDate,
+  } = useContext(ContextBL);
 
-  const todayDate = () => {
-    const date = new Date(Date.now());
-    const newDate = [
-      date.getFullYear(),
-      date.getMonth() + 1,
-      date.getDate(),
-    ].join("-");
-    return newDate;
-  };
-
-  const [formData, setFormData] = useState({
-    client: "",
-    date: todayDate(),
-    user: "admin admin",
-    numCarnet: "",
-    numBL: "",
-    infos: " ",
-  });
-
-  const newFormData = (prop, newData) => {
+  const newFormData = (e) => {
     let newFormData = Object.assign({}, formData);
-    newFormData[prop] = newData;
+    newFormData[e.target.name] = e.target.value;
     setFormData(newFormData);
   };
 
   const formSubmit = (e) => {
+    console.log(formData.user);
     e.preventDefault();
+    let id = affichageBloc.id;
     let client = "";
     listClients.forEach((element) => {
-      if (formData.client.split(" ")[0] === element.nom.split(" ")[0]) {
+      if (
+        formData.client.split(" ")[formData.client.split(" ").length - 1] ===
+        element.code
+      ) {
         client = element.code;
       }
     });
@@ -51,32 +46,80 @@ function NouveauBL() {
         user = element.id;
       }
     });
-    axios
-      .post(
-        `http://localhost:3000/api/bl/new/${client}/${formData.date}/${formData.infos}/${formData.numCarnet}/${formData.numBL}/${user}`
-      )
-      .then((res) => {
-        console.log(res);
-        console.log(res.data);
-      });
+    affichageBloc === ""
+      ? axios
+          .post(
+            `http://localhost:3001/api/bl/new/${client}/${formData.date}/${formData.infos}/${formData.numCarnet}/${formData.numBL}/${user}`
+          )
+          .then((res) => {
+            console.log(res);
+            console.log(res.data);
+            window.location.reload();
+          })
+      : axios
+          .post(
+            `http://localhost:3001/api/bl/modify/${id}/${client}/${formData.date}/${formData.infos}/${formData.numCarnet}/${formData.numBL}/${user}`
+          )
+          .then((res) => {
+            console.log(res);
+            console.log(res.data);
+            window.location.reload();
+          });
+  };
+
+  const confirmerDelete = () => {
+    if (window.confirm("Etes-vous sûr de vouloir supprimer le BL ?")) {
+      axios
+        .post(`http://localhost:3001/api/bl/delete/${affichageBloc.id}`)
+        .then((res) => {
+          console.log(res);
+          console.log(res.data);
+          window.location.reload();
+        });
+    }
+  };
+
+  const backToNewBL = () => {
+    setAffichageBloc("");
     setFormData({
       client: "",
       date: todayDate(),
       user: "admin admin",
       numCarnet: "",
       numBL: "",
-      infos: "",
+      infos: " ",
     });
   };
+
   return (
     <div className="nouveau-bl">
+      {affichageBloc === "" ? (
+        ""
+      ) : (
+        <h5 className="link-back-to-new" onClick={backToNewBL}>
+          <BsArrowLeftShort className="arrow-back-to-new-bl"></BsArrowLeftShort>
+          Retour création de BL
+        </h5>
+      )}
       <div className="nouveau-bl-child">
-        <h1>Enregistrement d'un nouveau Bon de Livraison</h1>
+        <h1>
+          {affichageBloc === ""
+            ? "Enregistrement d'un nouveau Bon de Livraison"
+            : "Modifier le bon de livraison"}
+        </h1>
         <div className="form-new-bl">
-          <Form onSubmit={(e) => formSubmit(e)}>
+          <Form onSubmit={formSubmit}>
             <Form.Row>
-              <DropdownClients formData={formData} setFormData={newFormData} />
-              <DropdownUsers formData={formData} setFormData={newFormData} />
+              <DropdownClients
+                BL={affichageBloc}
+                formData={formData}
+                setFormData={newFormData}
+              />
+              <DropdownUsers
+                BL={affichageBloc}
+                formData={formData}
+                setFormData={newFormData}
+              />
             </Form.Row>
             <Form.Row>
               <Form.Group as={Col} className="text-center">
@@ -86,7 +129,7 @@ function NouveauBL() {
                   className="border border-secondary"
                   type="date"
                   name="date"
-                  onChange={(e) => newFormData(e.target.name, e.target.value)}
+                  onChange={newFormData}
                   required
                 />
               </Form.Group>
@@ -99,7 +142,7 @@ function NouveauBL() {
                   placeholder="n°"
                   inputMode="numeric"
                   name="numCarnet"
-                  onChange={(e) => newFormData(e.target.name, e.target.value)}
+                  onChange={newFormData}
                   required
                 />
               </Form.Group>
@@ -112,7 +155,7 @@ function NouveauBL() {
                   placeholder="n°"
                   inputMode="numeric"
                   name="numBL"
-                  onChange={(e) => newFormData(e.target.name, e.target.value)}
+                  onChange={newFormData}
                   required
                 />
               </Form.Group>
@@ -126,7 +169,7 @@ function NouveauBL() {
                 as="textarea"
                 placeholder="Infos complémentaires"
                 name="infos"
-                onChange={(e) => newFormData(e.target.name, e.target.value)}
+                onChange={newFormData}
               />
             </Form.Group>
             <Form.Group
@@ -135,8 +178,20 @@ function NouveauBL() {
             >
               <div className="button-create-bl">
                 <Button size="lg" variant="primary" type="submit" block>
-                  Créer le BL
+                  {affichageBloc === "" ? "Créer le BL" : "Modifier le BL"}
                 </Button>
+                {affichageBloc === "" ? (
+                  ""
+                ) : (
+                  <Button
+                    size="lg"
+                    variant="danger"
+                    onClick={confirmerDelete}
+                    block
+                  >
+                    Supprimer le BL
+                  </Button>
+                )}
               </div>
             </Form.Group>
           </Form>
@@ -146,4 +201,4 @@ function NouveauBL() {
   );
 }
 
-export default NouveauBL;
+export default RightBlockBL;

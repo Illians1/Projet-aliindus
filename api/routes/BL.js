@@ -11,6 +11,11 @@ router.post(
   "/bl/new/:client/:date/:infos/:numCarnet/:numBL/:user",
   BLCtrl.newBL
 );
+router.post(
+  "/bl/modify/:id/:client/:date/:infos/:numCarnet/:numBL/:user",
+  BLCtrl.modifyBL
+);
+router.post("/bl/delete/:id", BLCtrl.deleteBL);
 router.post("/bl/:valide/:id", BLCtrl.valideOneBL);
 
 module.exports = router;
