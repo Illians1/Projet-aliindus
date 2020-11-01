@@ -9,7 +9,7 @@ function TitleListBL(props) {
   let type = props.type;
   let item = props.item;
 
-  const toggle = (e, type) => {
+  const toggle = (e) => {
     const newBL = [];
     affichageBL.forEach((element) => {
       if (
@@ -35,7 +35,7 @@ function TitleListBL(props) {
 
   return (
     <li>
-      <span className="title-list" onClick={(e) => toggle(e, type)}>
+      <span className="title-list" onClick={toggle}>
         {type === "client"
           ? item.nomClient !== null
             ? item.nomClient
@@ -45,8 +45,8 @@ function TitleListBL(props) {
       {item.visible === false ? (
         <RiArrowDownSFill className="arrow-list"></RiArrowDownSFill>
       ) : (
-        <RiArrowRightSFill className="arrow-list"></RiArrowRightSFill>
-      )}
+          <RiArrowRightSFill className="arrow-list"></RiArrowRightSFill>
+        )}
     </li>
   );
 }

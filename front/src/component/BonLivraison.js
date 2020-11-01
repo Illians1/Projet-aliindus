@@ -15,7 +15,6 @@ function BonLivraison(props) {
       pad(date.getMonth() + 1),
       pad(date.getDate()),
     ].join("-");
-    console.log(newDate);
     return newDate;
   };
 

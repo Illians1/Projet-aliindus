@@ -7,6 +7,7 @@ import "../css/App.css";
 import { BrowserRouter, Switch, Route, Redirect } from "react-router-dom";
 import axios from "axios";
 import ContextClientsUsers from "./ContextClientsUsers";
+import ScrollToTop from "./ScrollToTop";
 
 function App() {
   const [listClients, setListClients] = useState([]);
@@ -27,6 +28,7 @@ function App() {
   return (
     <div style={{ background: "#B8B8B7" }}>
       <BrowserRouter>
+        <ScrollToTop />
         <NavBar />
         <div className="main">
           <ContextClientsUsers.Provider value={contextValue}>

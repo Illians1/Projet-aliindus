@@ -41,6 +41,7 @@ function ModifyBL(props) {
       numBL: item.numeroBl == null ? "" : item.numeroBl,
       infos: item.info == null ? " " : item.info,
     });
+    window.scrollTo(0, 0);
   };
 
   return (
