@@ -4,6 +4,8 @@ const router = express.Router();
 const app = express();
 const bodyParser = require("body-parser");
 const BLRoutes = require("./routes/BL");
+const ClientsRoutes = require("./routes/Clients");
+const UsersRoutes = require("./routes/Users");
 
 app.use((req, res, next) => {
   res.setHeader("Access-Control-Allow-Origin", "*");
@@ -20,6 +22,8 @@ app.use((req, res, next) => {
 
 app.use(bodyParser.json());
 
-app.use("/api", BLRoutes);
+app.use("/api/bl", BLRoutes);
+app.use("/api/client", ClientsRoutes);
+app.use("/api/user", UsersRoutes);
 
 module.exports = app;
