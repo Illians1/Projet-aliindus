@@ -4,7 +4,7 @@ import Col from "react-bootstrap/Col";
 import ContextBL from "../../Context/ContextBL";
 
 function DropdownClients(props) {
-  const { listClients } = useContext(ContextBL);
+  const { listClients, errorClient } = useContext(ContextBL);
 
   return (
     <Form.Group as={Col} className="text-center">
@@ -25,6 +25,7 @@ function DropdownClients(props) {
         ))}
       </datalist>
       <div>
+        <Form.Label className="date-BL">{errorClient}</Form.Label>
         <div className="d-flex justify-content-center">
           <a href="google.com">Créer un nouveau client</a>
         </div>

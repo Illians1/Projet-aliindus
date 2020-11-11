@@ -34,6 +34,7 @@ function BonLivraison(props) {
   const [affichageBloc, setAffichageBloc] = useState("");
   const [affichageValid, setAffichageValid] = useState(true);
   const [triBL, setTriBL] = useState("date");
+  const [errorClient, setErrorClient] = useState("");
 
   useEffect(() => {
     const dataBL = async () => {
@@ -134,6 +135,8 @@ function BonLivraison(props) {
     affichageValid,
     triBL,
     setTriBL,
+    errorClient,
+    setErrorClient,
   };
 
   return (

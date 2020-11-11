@@ -2,9 +2,13 @@ import React, { useContext } from "react";
 import ContextBL from "../../Context/ContextBL";
 
 function ModifyBL(props) {
-  const { setAffichageBloc, setFormData, listUsers, listClients } = useContext(
-    ContextBL
-  );
+  const {
+    setAffichageBloc,
+    setFormData,
+    listUsers,
+    listClients,
+    setErrorClient,
+  } = useContext(ContextBL);
 
   const convertDate = (itemDate) => {
     const dd = itemDate.split("/")[0];
@@ -39,6 +43,7 @@ function ModifyBL(props) {
       numBL: item.numeroBl == null ? "" : item.numeroBl,
       infos: item.info == null ? " " : item.info,
     });
+    setErrorClient("");
     window.scrollTo(0, 0);
   };
 

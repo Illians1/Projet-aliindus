@@ -25,7 +25,7 @@ function App() {
     <div style={{ background: "#B8B8B7" }}>
       <BrowserRouter>
         <ScrollToTop />
-        <Header isAuthenticated={isAuthenticated} />
+        <Header isAuthenticated={isAuthenticated} isAdmin={isAdmin} />
         <div className="main">
           <Switch>
             <Route exact path="/" render={() => <Redirect to="/bl" />} />

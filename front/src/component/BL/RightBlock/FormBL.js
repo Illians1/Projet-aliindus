@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import Form from "react-bootstrap/Form";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
@@ -8,19 +8,22 @@ import Button from "react-bootstrap/Button";
 import axios from "axios";
 import ContextBL from "../../Context/ContextBL";
 
-function FormBL() {
+function FormBL(props) {
   const {
     affichageBloc,
     formData,
     setFormData,
     listUsers,
     listClients,
+    errorClient,
+    setErrorClient,
   } = useContext(ContextBL);
 
   const newFormData = (e) => {
     let newFormData = Object.assign({}, formData);
     newFormData[e.target.name] = e.target.value;
     setFormData(newFormData);
+    setErrorClient("");
   };
 
   const formSubmit = (e) => {
@@ -41,7 +44,6 @@ function FormBL() {
         user = element.pseudo;
       }
     });
-    console.log(formData.user);
     affichageBloc === ""
       ? axios
           .post(
@@ -69,6 +71,8 @@ function FormBL() {
                 localStorage.removeItem("user");
               }
               window.location.reload();
+            } else if (error.response && error.response.data.errorClient) {
+              setErrorClient(error.response.data.errorClient);
             }
           })
       : axios
@@ -98,6 +102,8 @@ function FormBL() {
                 localStorage.removeItem("user");
               }
               window.location.reload();
+            } else if (error.response && error.response.data.errorClient) {
+              setErrorClient(error.response.data.errorClient);
             }
           });
   };

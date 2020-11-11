@@ -6,6 +6,7 @@ import Button from "react-bootstrap/Button";
 
 function Header(props) {
   const isAuthenticated = props.isAuthenticated;
+  const isAdmin = props.isAdmin;
   const disconnect = () => {
     localStorage.removeItem("user");
     window.location.reload();
@@ -25,14 +26,16 @@ function Header(props) {
         </Navbar.Brand>
         <span className="title"> Gestion des bons de livraison</span>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
-        {isAuthenticated() ? (
-          <Button onClick={disconnect} variant="secondary">
-            Se déconnecter
-          </Button>
+        {isAuthenticated() === true ? (
+          <>
+            <Button onClick={disconnect} variant="secondary">
+              Se déconnecter
+            </Button>
+          </>
         ) : (
           ""
         )}
-        <HeaderNavBar />
+        <HeaderNavBar isAuthenticated={isAuthenticated} isAdmin={isAdmin} />
       </Navbar>
     </header>
   );

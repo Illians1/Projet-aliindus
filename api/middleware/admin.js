@@ -9,7 +9,7 @@ module.exports = (req, res, next) => {
       "DYikuzdkiu_//fj^^_fbfkuqjzhjhmpoiUKFHklfkhuf_zhukgzdilqhbdkqd!fesufghsp"
     );
     const userRole = decodedToken.userRole;
-    if (userRole === "user" || userRole === "admin") {
+    if (userRole === "admin") {
       next();
     } else {
       throw "Invalid user ID";

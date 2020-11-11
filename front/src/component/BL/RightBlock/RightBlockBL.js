@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import ContextBL from "../../Context/ContextBL";
 import { BsArrowLeftShort } from "react-icons/bs";
 import FormBL from "./FormBL";
@@ -9,6 +9,8 @@ function RightBlockBL() {
     setAffichageBloc,
     setFormData,
     todayDate,
+    errorClient,
+    setErrorClient,
   } = useContext(ContextBL);
 
   const backToNewBL = () => {
@@ -21,6 +23,7 @@ function RightBlockBL() {
       numBL: "",
       infos: " ",
     });
+    setErrorClient("");
   };
 
   return (

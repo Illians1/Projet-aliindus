@@ -138,7 +138,7 @@ exports.newBL = (req, res, next) => {
         // fields will contain information about the returned results fields (if any)
         if (error) {
           res.status(400).json({
-            error,
+            errorClient: "Le client n'existe pas !",
           });
         } else {
           res.status(201).json({
@@ -226,7 +226,7 @@ exports.modifyBL = (req, res, next) => {
       console.log(sql);
       if (error) {
         res.status(400).json({
-          error,
+          errorClient: "Le client n'existe pas !",
         });
       } else {
         res.status(201).json({

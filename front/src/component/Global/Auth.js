@@ -1,13 +1,18 @@
 import React, { useState } from "react";
 import axios from "axios";
+import Form from "react-bootstrap/Form";
 
 function Auth() {
   const [formData, setFormData] = useState({ login: "", password: "" });
+  const [errorLogin, setErrorLogin] = useState("");
+  const [errorPassword, setErrorPassword] = useState("");
 
   const newFormData = (e) => {
     let newForm = Object.assign({}, formData);
     newForm[e.target.name] = e.target.value;
     setFormData(newForm);
+    setErrorLogin("");
+    setErrorPassword("");
   };
 
   const formSubmit = (e) => {
@@ -18,8 +23,16 @@ function Auth() {
         password: formData.password,
       })
       .then((res) => {
+        console.log(res.data);
         localStorage.setItem("user", JSON.stringify(res.data));
         window.location.reload();
+      })
+      .catch((error) => {
+        if (error.response && error.response.data.errorLogin) {
+          setErrorLogin(error.response.data.errorLogin);
+        } else if (error.response && error.response.data.errorPassword) {
+          setErrorPassword(error.response.data.errorPassword);
+        }
       });
   };
 
@@ -28,24 +41,32 @@ function Auth() {
       <div id="formContent">
         <p>Connectez-vous</p>
         <form onSubmit={formSubmit}>
-          <input
-            type="text"
-            id="login"
-            value={formData.login}
-            className="inputTextAuth"
-            name="login"
-            onChange={newFormData}
-            placeholder="Nom de compte"
-          />
-          <input
-            type="text"
-            id="password"
-            className="fadeIn third"
-            name="password"
-            value={formData.password}
-            placeholder="Mot de passe"
-            onChange={newFormData}
-          />
+          <Form.Group>
+            <input
+              type="text"
+              id="login"
+              value={formData.login}
+              className="inputTextAuth"
+              name="login"
+              onChange={newFormData}
+              placeholder="Nom de compte"
+              required
+            />
+            <Form.Label className="date-BL">{errorLogin}</Form.Label>
+          </Form.Group>
+          <Form.Group>
+            <input
+              type="password"
+              id="password"
+              className="inputTextAuth"
+              name="password"
+              value={formData.password}
+              placeholder="Mot de passe"
+              onChange={newFormData}
+              required
+            />
+            <Form.Label className="date-BL">{errorPassword}</Form.Label>
+          </Form.Group>
           <input type="submit" className="fadeIn fourth" value="Se connecter" />
         </form>
       </div>

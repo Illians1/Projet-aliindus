@@ -101,7 +101,7 @@ exports.login = (req, res, next) => {
     } else {
       if (results.length < 1) {
         res.status(401).json({
-          errorMessage: "Utilisateur non trouvé !",
+          errorLogin: "Utilisateur non trouvé !",
         });
       } else {
         bcrypt
@@ -110,7 +110,7 @@ exports.login = (req, res, next) => {
             if (!valid) {
               return res
                 .status(401)
-                .json({ error: "Mot de passe incorrect !" });
+                .json({ errorPassword: "Mot de passe incorrect !" });
             }
             return res.status(200).json({
               userRole: results[0].role,
