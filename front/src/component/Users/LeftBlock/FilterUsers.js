@@ -1,14 +1,14 @@
 import React, { useContext } from "react";
 import Form from "react-bootstrap/Form";
-import ContextClients from "../../Context/ContextClients";
+import ContextUsers from "../../Context/ContextUsers";
 
-function FilterClients(props) {
-  const { setAffichageClients, listClients } = useContext(ContextClients);
+function FilterUsers() {
+  const { setAffichageUsers, listUsers } = useContext(ContextUsers);
 
   const filter = (e) => {
     e.preventDefault();
-    let filteredClients = [];
-    setAffichageClients(listClients);
+    let filteredUsers = [];
+    setAffichageUsers(listUsers);
     if (e.target.value !== "") {
       const filter = (obj, value) => {
         if (
@@ -34,13 +34,11 @@ function FilterClients(props) {
           return false;
         }
       };
-      filteredClients = listClients.filter((Client) =>
-        filter(Client, e.target.value)
-      );
+      filteredUsers = listUsers.filter((User) => filter(User, e.target.value));
     } else {
-      filteredClients = listClients;
+      filteredUsers = listUsers;
     }
-    setAffichageClients(filteredClients);
+    setAffichageUsers(filteredUsers);
   };
 
   return (
@@ -58,4 +56,4 @@ function FilterClients(props) {
   );
 }
 
-export default FilterClients;
+export default FilterUsers;

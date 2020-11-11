@@ -1,10 +1,10 @@
 import React, { useContext } from "react";
 import ContextBL from "../../Context/ContextBL";
-import ContextClientsUsers from "../../Context/ContextClientsUsers";
 
 function ModifyBL(props) {
-  const { listUsers, listClients } = useContext(ContextClientsUsers);
-  const { setAffichageBloc, setFormData } = useContext(ContextBL);
+  const { setAffichageBloc, setFormData, listUsers, listClients } = useContext(
+    ContextBL
+  );
 
   const convertDate = (itemDate) => {
     const dd = itemDate.split("/")[0];
@@ -16,7 +16,7 @@ function ModifyBL(props) {
 
   const modifyBlock = () => {
     let item = props.item;
-    setAffichageBloc(props.item);
+    setAffichageBloc(item);
 
     let client = "";
     listClients.forEach((element) => {
@@ -26,16 +26,15 @@ function ModifyBL(props) {
     });
     let user = "";
     listUsers.forEach((element) => {
-      if (element.nom + " " + element.prenom === item.nomUtilisateur) {
-        user = element.nom + " " + element.prenom;
-        console.log(user);
+      if (element.pseudo === item.pseudo) {
+        user = element.pseudo;
       }
     });
 
     setFormData({
       client: client == null ? "" : client,
       date: convertDate(item.date),
-      user: user == null ? "admin admin" : user,
+      user: user == null ? "admin.admin" : user,
       numCarnet: item.numeroCarnet == null ? "" : item.numeroCarnet,
       numBL: item.numeroBl == null ? "" : item.numeroBl,
       infos: item.info == null ? " " : item.info,

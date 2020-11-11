@@ -8,6 +8,7 @@ import NumeroCarnetBL from "./NumeroCarnetBL";
 import NumeroBLBL from "./NumeroBLBL";
 import ClientBL from "./ClientBL";
 import DateCreationBL from "./DateCreationBL";
+import UserBL from "./UserBL";
 
 function ListBL() {
   const { affichageBL, setAffichageBL, setListBL, triBL } = useContext(
@@ -16,13 +17,29 @@ function ListBL() {
 
   useEffect(() => {
     const fetchData = async () => {
-      const result = await axios.get(
-        triBL === "date"
-          ? `http://localhost:3001/api/bl`
-          : `http://localhost:3001/api/BL/client`
-      );
-      setAffichageBL(result.data.results);
-      setListBL(result.data.results);
+      await axios
+        .get(
+          triBL === "date"
+            ? `http://localhost:3001/api/bl`
+            : `http://localhost:3001/api/BL/client`,
+          {
+            headers: {
+              Authorization: localStorage.getItem("user"),
+            },
+          }
+        )
+        .then((res) => {
+          setAffichageBL(res.data.results);
+          setListBL(res.data.results);
+        })
+        .catch((error) => {
+          if (error.response && error.response.data.authError) {
+            if (localStorage.getItem("user")) {
+              localStorage.removeItem("user");
+            }
+            window.location.reload();
+          }
+        });
     };
     fetchData();
   }, [triBL]);
@@ -65,6 +82,7 @@ function ListBL() {
                     <NumeroBLBL item={item} />{" "}
                   </>
                 )}
+                <UserBL item={item} />
                 <ValidBL item={item} />
                 <ModifyBL item={item} />
               </li>

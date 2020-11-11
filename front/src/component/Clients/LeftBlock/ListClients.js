@@ -8,19 +8,34 @@ import AdresseClient from "./AdresseClient";
 import FilterClients from "./FilterClients";
 import ButtonDisplayValidClient from "./ButtonDisplayValidClient";
 import ListeBLNonValides from "./ListeBLNonValides";
-import ContextClientsUsers from "../../Context/ContextClientsUsers";
 import ContextClients from "../../Context/ContextClients";
 import ModifyClient from "./ModifyClient";
 
-function ListClients(props) {
-  const { setListClients } = useContext(ContextClientsUsers);
-  const { affichageClients, setAffichageClients } = useContext(ContextClients);
+function ListClients() {
+  const { affichageClients, setAffichageClients, setListClients } = useContext(
+    ContextClients
+  );
 
   useEffect(() => {
     const fetchData = async () => {
-      const client = await axios.get(`http://localhost:3001/api/client`);
-      setListClients(client.data.results);
-      setAffichageClients(client.data.results);
+      const client = await axios
+        .get(`http://localhost:3001/api/client`, {
+          headers: {
+            Authorization: localStorage.getItem("user"),
+          },
+        })
+        .then((res) => {
+          setListClients(client.data.results);
+          setAffichageClients(client.data.results);
+        })
+        .catch((error) => {
+          if (error.response && error.response.data.authError) {
+            if (localStorage.getItem("user")) {
+              localStorage.removeItem("user");
+            }
+            window.location.reload();
+          }
+        });
     };
     fetchData();
   }, []);

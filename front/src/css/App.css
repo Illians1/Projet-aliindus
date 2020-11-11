@@ -12,6 +12,11 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
 }
+
+select {
+  text-align-last: center;
+}
+
 /* NavBar component */
 
 a {
@@ -289,6 +294,12 @@ input[type="text"]:placeholder {
 .link-modif:hover {
   text-decoration: underline;
   cursor: pointer;
+}
+
+.title-users {
+  font-weight: 800;
+  font-size: 20px;
+  margin-bottom: 25px;
 }
 
 /* NouveauBL component */

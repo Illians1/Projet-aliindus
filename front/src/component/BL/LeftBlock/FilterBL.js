@@ -17,6 +17,11 @@ function FilterBL() {
               .toString()
               .toUpperCase()
               .indexOf(value.toUpperCase()) !== -1) ||
+          (obj.nomUtilisateur &&
+            obj.nomUtilisateur
+              .toString()
+              .toUpperCase()
+              .indexOf(value.toUpperCase()) !== -1) ||
           (obj.date &&
             obj.date.toString().toUpperCase().indexOf(value.toUpperCase()) !==
               -1) ||

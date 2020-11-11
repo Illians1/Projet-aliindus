@@ -1,29 +1,31 @@
 import React, { useContext } from "react";
 import { RiArrowRightSFill, RiArrowDownSFill } from "react-icons/ri";
-import ContextClients from "../../Context/ContextClients";
+import ContextClientsUsers from "../../Context/ContextClientsUsers";
+import ContextUsers from "../../Context/ContextUsers";
 
-function TitleListClients(props) {
-  const { setAffichageClients, listClients } = useContext(ContextClients);
+function TitleListUsers(props) {
+  const { setAffichageUsers, listUsers } = useContext(ContextUsers);
 
   let item = props.item;
 
   const toggle = (e) => {
-    const newListClients = [];
-    listClients.forEach((element) => {
-      if (element.nom === e.target.innerHTML) {
+    const newListUsers = [];
+    listUsers.forEach((element) => {
+      const nom = element.prenom + " " + element.nom;
+      if (nom === e.target.innerHTML) {
         element.visible !== false
           ? (element.visible = false)
           : (element.visible = true);
       }
-      newListClients.push(element);
+      newListUsers.push(element);
     });
-    setAffichageClients(newListClients);
+    setAffichageUsers(newListUsers);
   };
 
   return (
     <div>
       <span className="title-list" onClick={toggle}>
-        {item.nom}
+        {item.prenom + " " + item.nom}
       </span>
       {item.visible === false ? (
         <RiArrowDownSFill className="arrow-list"></RiArrowDownSFill>
@@ -34,4 +36,4 @@ function TitleListClients(props) {
   );
 }
 
-export default TitleListClients;
+export default TitleListUsers;

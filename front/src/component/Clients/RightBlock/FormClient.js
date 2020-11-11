@@ -20,7 +20,6 @@ function FormClient() {
             `https://geo.api.gouv.fr/communes/?nom=${value}&limit=5&fields=nom,codesPostaux,departement`
           )
           .then((res) => {
-            console.log(res.data);
             let newVille = [];
             res.data.forEach((element) => {
               newVille.push(element.nom);
@@ -61,18 +60,24 @@ function FormClient() {
               `https://geo.api.gouv.fr/communes?codePostal=${value}&fields=nom,departement`
             )
             .then((res) => {
-              if (res.data.length > 1) {
-                let newVille = [];
-                res.data.forEach((element) => {
-                  newVille.push(element.nom);
-                });
-                setVilleData(newVille);
+              if (res.data.length > 0) {
+                if (res.data.length > 1) {
+                  let newVille = [];
+                  res.data.forEach((element) => {
+                    newVille.push(element.nom);
+                  });
+                  newFormData["ville"] = "";
+                  setVilleData(newVille);
+                } else {
+                  newFormData["ville"] = res.data[0].nom;
+                }
+                newFormData["departement"] = res.data[0].departement.nom;
+                newFormData["codePostal"] = value;
+                setFormData(newFormData);
               } else {
-                newFormData["ville"] = res.data[0].nom;
+                newFormData["codePostal"] = value;
+                setFormData(newFormData);
               }
-              newFormData["departement"] = res.data[0].departement.nom;
-              newFormData["codePostal"] = value;
-              setFormData(newFormData);
             });
         } else {
           newFormData["codePostal"] = value;
@@ -95,7 +100,7 @@ function FormClient() {
 
   const formSubmit = (e) => {
     e.preventDefault();
-    let id = affichageBloc.id;
+    let id = affichageBloc.code;
     const nom = formData.nom.toUpperCase();
     const adresse = formData.adresse.toUpperCase();
     const code = formData.code.toUpperCase();
@@ -104,28 +109,82 @@ function FormClient() {
     affichageBloc === ""
       ? axios
           .post(
-            `http://localhost:3001/api/client/new/${nom}/${code}/${adresse}/${ville}/${formData.codePostal}/${departement}`
+            `http://localhost:3001/api/client/new/`,
+            {
+              nom: nom,
+              code: code,
+              adresse: adresse,
+              ville: ville,
+              codePostal: formData.codePostal,
+              departement: departement,
+            },
+            {
+              headers: {
+                Authorization: localStorage.getItem("user"),
+              },
+            }
           )
-          .then((res) => {
-            console.log(res);
-            console.log(res.data);
+          .then(() => {
             window.location.reload();
           })
-      : axios.post(`http://localhost:3001/api/bl/modify/${id}/`).then((res) => {
-          console.log(res);
-          console.log(res.data);
-          window.location.reload();
-        });
+          .catch((error) => {
+            if (error.response && error.response.data.authError) {
+              if (localStorage.getItem("user")) {
+                localStorage.removeItem("user");
+              }
+              window.location.reload();
+            }
+          })
+      : axios
+          .put(
+            `http://localhost:3001/api/client/modify/`,
+            {
+              id: id,
+              nom: nom,
+              adresse: adresse,
+              ville: ville,
+              codePostal: formData.codePostal,
+              departement: departement,
+            },
+            {
+              headers: {
+                Authorization: localStorage.getItem("user"),
+              },
+            }
+          )
+          .then(() => {
+            window.location.reload();
+          })
+          .catch((error) => {
+            if (error.response && error.response.data.authError) {
+              if (localStorage.getItem("user")) {
+                localStorage.removeItem("user");
+              }
+              window.location.reload();
+            }
+          });
   };
 
   const confirmerDelete = () => {
-    if (window.confirm("Etes-vous sûr de vouloir supprimer le BL ?")) {
+    let id = affichageBloc.code;
+    if (window.confirm("Etes-vous sûr de vouloir supprimer le client ?")) {
       axios
-        .post(`http://localhost:3001/api/client/delete/${affichageBloc.code}`)
+        .delete(`http://localhost:3001/api/client/delete/`, {
+          params: { id: id },
+          headers: {
+            Authorization: localStorage.getItem("user"),
+          },
+        })
         .then((res) => {
-          console.log(res);
-          console.log(res.data);
           window.location.reload();
+        })
+        .catch((error) => {
+          if (error.response && error.response.data.authError) {
+            if (localStorage.getItem("user")) {
+              localStorage.removeItem("user");
+            }
+            window.location.reload();
+          }
         });
     }
   };
@@ -145,18 +204,22 @@ function FormClient() {
             required
           />
         </Form.Group>
-        <Form.Group as={Col} className="text-center">
-          <Form.Label>Code client :</Form.Label>
-          <Form.Control
-            value={formData.code}
-            className="border border-secondary"
-            type="text"
-            name="code"
-            placeholder="Code client"
-            onChange={(e) => newFormData(e, "")}
-            required
-          />
-        </Form.Group>
+        {affichageBloc === "" ? (
+          <Form.Group as={Col} className="text-center">
+            <Form.Label>Code client :</Form.Label>
+            <Form.Control
+              value={formData.code}
+              className="border border-secondary"
+              type="text"
+              name="code"
+              placeholder="Code client"
+              onChange={(e) => newFormData(e, "")}
+              required
+            />
+          </Form.Group>
+        ) : (
+          ""
+        )}
       </Form.Row>
       <Form.Row>
         <Form.Group id="autocomplete" as={Col} className="text-center">

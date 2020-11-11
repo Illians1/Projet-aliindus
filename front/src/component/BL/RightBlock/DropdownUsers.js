@@ -1,10 +1,10 @@
 import React, { useContext } from "react";
 import Form from "react-bootstrap/Form";
 import Col from "react-bootstrap/Col";
-import ContextClientsUsers from "../../Context/ContextClientsUsers";
+import ContextBL from "../../Context/ContextBL";
 
 function DropdownUsers(props) {
-  const { listUsers } = useContext(ContextClientsUsers);
+  const { listUsers } = useContext(ContextBL);
 
   return (
     <Form.Group as={Col} className="text-center">
@@ -21,7 +21,7 @@ function DropdownUsers(props) {
           required
         >
           {listUsers.map((item, index) => (
-            <option key={index}>{item.nom + " " + item.prenom}</option>
+            <option key={index}>{item.pseudo}</option>
           ))}
         </Form.Control>
       </div>

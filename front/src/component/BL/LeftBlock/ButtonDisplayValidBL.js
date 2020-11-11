@@ -8,10 +8,8 @@ function ButtonDisplayValidBL() {
   const displayChecked = (e) => {
     if (e.target.checked === true) {
       setAffichageValid(true);
-      console.log("check");
     } else {
       setAffichageValid(false);
-      console.log("nocheck");
     }
   };
 

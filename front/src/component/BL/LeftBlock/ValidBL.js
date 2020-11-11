@@ -18,22 +18,56 @@ function ValidBL(props) {
         if (element.valide === "oui") {
           element.valide = "non";
           axios
-            .post(
-              `http://localhost:3001/api/bl/${element.valide}/${element.id}`
+            .put(
+              `http://localhost:3001/api/bl/`,
+              {
+                valide: element.valide,
+                id: element.id,
+              },
+              {
+                headers: {
+                  Authorization: localStorage.getItem("user"),
+                },
+              }
             )
             .then((res) => {
               console.log(res);
               console.log(res.data);
+            })
+            .catch((error) => {
+              if (error.response && error.response.data.authError) {
+                if (localStorage.getItem("user")) {
+                  localStorage.removeItem("user");
+                }
+                window.location.reload();
+              }
             });
         } else {
           element.valide = "oui";
           axios
-            .post(
-              `http://localhost:3001/api/bl/${element.valide}/${element.id}`
+            .put(
+              `http://localhost:3001/api/bl/valid`,
+              {
+                valide: element.valide,
+                id: element.id,
+              },
+              {
+                headers: {
+                  Authorization: localStorage.getItem("user"),
+                },
+              }
             )
             .then((res) => {
               console.log(res);
               console.log(res.data);
+            })
+            .catch((error) => {
+              if (error.response && error.response.data.authError) {
+                if (localStorage.getItem("user")) {
+                  localStorage.removeItem("user");
+                }
+                window.location.reload();
+              }
             });
         }
       }

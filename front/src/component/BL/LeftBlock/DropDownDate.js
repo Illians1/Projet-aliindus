@@ -43,7 +43,7 @@ function DropDownDate() {
   return (
     <div className="dropdown">
       <span>Date : </span>
-      <DropdownButton id="dropdown-basic-button" title={dateButton}>
+      <DropdownButton id="dropdown-basic-button" title="Filtrer par date">
         <Dropdown.Item onClick={() => triDate("")} className="dropdown-item">
           Toutes les dates
         </Dropdown.Item>

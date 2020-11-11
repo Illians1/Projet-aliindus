@@ -7,7 +7,6 @@ function ButtonSortBL() {
   const [button, setButton] = useState("Date de création");
 
   const changeTriBL = (filtre) => {
-    console.log("changeTri");
     switch (filtre) {
       case "client": {
         setTriBL("client");

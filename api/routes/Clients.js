@@ -2,12 +2,11 @@ const express = require("express");
 const router = express.Router();
 
 const ClientsCtrl = require("../queries/Clients");
+const auth = require("../middleware/auth");
 
-router.get("/", ClientsCtrl.getAllClients);
-router.post(
-  "/new/:nom/:code/:adresse/:ville/:codePostal/:departement",
-  ClientsCtrl.newClient
-);
-router.post("/delete/:id", ClientsCtrl.deleteClient);
+router.get("/", auth, ClientsCtrl.getAllClients);
+router.post("/new/", auth, ClientsCtrl.newClient);
+router.delete("/delete/", auth, ClientsCtrl.deleteClient);
+router.put("/modify", auth, ClientsCtrl.modifyClient);
 
 module.exports = router;

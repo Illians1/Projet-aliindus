@@ -2,58 +2,74 @@ import React, { useEffect, useState } from "react";
 import Header from "./Header/Header";
 import Footer from "./Footer";
 import BonLivraison from "../BL/BonLivraison";
-import Auth from "../Users/Auth";
+import Auth from "./Auth";
+import Users from "../Users/Users";
 import { BrowserRouter, Switch, Route, Redirect } from "react-router-dom";
-import axios from "axios";
-import ContextClientsUsers from "../Context/ContextClientsUsers";
 import ScrollToTop from "./ScrollToTop";
 import Clients from "../Clients/Clients";
 
 function App() {
-  const [listClients, setListClients] = useState([]);
-  const [listUsers, setListUsers] = useState([]);
-  const [listBL, setListBL] = useState([]);
-
-  useEffect(() => {
-    const fetchData = async () => {
-      const bl = await axios.get(`http://localhost:3001/api/bl`);
-      const client = await axios.get(`http://localhost:3001/api/client`);
-      const utilisateur = await axios.get(`http://localhost:3001/api/user`);
-      setListBL(bl.data.results);
-      setListClients(client.data.results);
-      setListUsers(utilisateur.data.results);
-    };
-    fetchData();
-  }, []);
-
-  const contextValue = {
-    listClients,
-    listUsers,
-    setListClients,
-    setListUsers,
-    listBL,
-    setListBL,
+  const isAuthenticated = () => {
+    return localStorage.getItem("user") ? true : false;
   };
+
+  const isAdmin = () => {
+    if (localStorage.getItem("user")) {
+      const userData = JSON.parse(localStorage.getItem("user"));
+      return userData.userRole === "admin" ? true : false;
+    }
+    return false;
+  };
+
   return (
     <div style={{ background: "#B8B8B7" }}>
       <BrowserRouter>
         <ScrollToTop />
-        <Header />
+        <Header isAuthenticated={isAuthenticated} />
         <div className="main">
-          <ContextClientsUsers.Provider value={contextValue}>
-            <Switch>
-              <Route exact path="/" render={() => <Redirect to="/bl" />} />
-              <Route path="/auth" render={(props) => <Auth {...props} />} />
-              <Route
-                path="/bl/:filter?"
-                render={(props) => <BonLivraison {...props} />}
-              />
-              <Route
-                path="/clients"
-                render={(props) => <Clients {...props} />}
-              />
-            </Switch>
-          </ContextClientsUsers.Provider>
+          <Switch>
+            <Route exact path="/" render={() => <Redirect to="/bl" />} />
+            <Route
+              path="/auth"
+              render={(props) =>
+                isAuthenticated() === true ? (
+                  <Redirect to="/bl" />
+                ) : (
+                  <Auth {...props} />
+                )
+              }
+            />
+            <Route
+              path="/bl/:filter?"
+              render={(props) =>
+                isAuthenticated() === true ? (
+                  <BonLivraison {...props} />
+                ) : (
+                  <Redirect to="/auth" />
+                )
+              }
+            />
+            <Route
+              path="/clients"
+              render={(props) =>
+                isAuthenticated() === true ? (
+                  <Clients {...props} />
+                ) : (
+                  <Redirect to="/auth" />
+                )
+              }
+            />
+            <Route
+              path="/users"
+              render={(props) =>
+                isAdmin() === true ? (
+                  <Users {...props} />
+                ) : (
+                  <Redirect to="/auth" />
+                )
+              }
+            />
+          </Switch>
         </div>
         <Footer />
       </BrowserRouter>

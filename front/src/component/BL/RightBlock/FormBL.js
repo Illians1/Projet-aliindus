@@ -6,12 +6,16 @@ import DropdownClients from "./DropdownClients";
 import DropdownUsers from "./DropdownUsers";
 import Button from "react-bootstrap/Button";
 import axios from "axios";
-import ContextClientsUsers from "../../Context/ContextClientsUsers";
 import ContextBL from "../../Context/ContextBL";
 
 function FormBL() {
-  const { listUsers, listClients } = useContext(ContextClientsUsers);
-  const { affichageBloc, formData, setFormData } = useContext(ContextBL);
+  const {
+    affichageBloc,
+    formData,
+    setFormData,
+    listUsers,
+    listClients,
+  } = useContext(ContextBL);
 
   const newFormData = (e) => {
     let newFormData = Object.assign({}, formData);
@@ -20,7 +24,6 @@ function FormBL() {
   };
 
   const formSubmit = (e) => {
-    console.log(formData.user);
     e.preventDefault();
     let id = affichageBloc.id;
     let client = "";
@@ -34,39 +37,92 @@ function FormBL() {
     });
     let user = "";
     listUsers.forEach((element) => {
-      if (element.nom + " " + element.prenom === formData.user) {
-        user = element.id;
+      if (element.pseudo === formData.user) {
+        user = element.pseudo;
       }
     });
+    console.log(formData.user);
     affichageBloc === ""
       ? axios
           .post(
-            `http://localhost:3001/api/bl/new/${client}/${formData.date}/${formData.infos}/${formData.numCarnet}/${formData.numBL}/${user}`
+            `http://localhost:3001/api/bl/new/`,
+            {
+              client: client,
+              date: formData.date,
+              infos: formData.infos,
+              numCarnet: formData.numCarnet,
+              numBL: formData.numBL,
+              user: user,
+            },
+            {
+              headers: {
+                Authorization: localStorage.getItem("user"),
+              },
+            }
           )
           .then((res) => {
-            console.log(res);
-            console.log(res.data);
             window.location.reload();
           })
+          .catch((error) => {
+            if (error.response && error.response.data.authError) {
+              if (localStorage.getItem("user")) {
+                localStorage.removeItem("user");
+              }
+              window.location.reload();
+            }
+          })
       : axios
-          .post(
-            `http://localhost:3001/api/bl/modify/${id}/${client}/${formData.date}/${formData.infos}/${formData.numCarnet}/${formData.numBL}/${user}`
+          .put(
+            `http://localhost:3001/api/bl/modify/`,
+            {
+              id: id,
+              client: client,
+              date: formData.date,
+              infos: formData.infos,
+              numCarnet: formData.numCarnet,
+              numBL: formData.numBL,
+              user: user,
+            },
+            {
+              headers: {
+                Authorization: localStorage.getItem("user"),
+              },
+            }
           )
-          .then((res) => {
-            console.log(res);
-            console.log(res.data);
+          .then(() => {
             window.location.reload();
+          })
+          .catch((error) => {
+            if (error.response && error.response.data.authError) {
+              if (localStorage.getItem("user")) {
+                localStorage.removeItem("user");
+              }
+              window.location.reload();
+            }
           });
   };
 
   const confirmerDelete = () => {
+    const id = affichageBloc.id;
+    console.log(id);
     if (window.confirm("Etes-vous sûr de vouloir supprimer le BL ?")) {
       axios
-        .post(`http://localhost:3001/api/bl/delete/${affichageBloc.id}`)
-        .then((res) => {
-          console.log(res);
-          console.log(res.data);
+        .delete(`http://localhost:3001/api/bl/delete/`, {
+          params: { id: id },
+          headers: {
+            Authorization: localStorage.getItem("user"),
+          },
+        })
+        .then(() => {
           window.location.reload();
+        })
+        .catch((error) => {
+          if (error.response && error.response.data.authError) {
+            if (localStorage.getItem("user")) {
+              localStorage.removeItem("user");
+            }
+            window.location.reload();
+          }
         });
     }
   };

@@ -2,7 +2,7 @@ import React, { useState, useEffect, useContext } from "react";
 import HistoriqueBL from "./LeftBlock/HistoriqueBL";
 import RightBlockBL from "./RightBlock/RightBlockBL";
 import ContextBL from "../Context/ContextBL";
-import ContextClientsUsers from "../Context/ContextClientsUsers";
+import axios from "axios";
 
 function BonLivraison(props) {
   const todayDate = () => {
@@ -21,17 +21,82 @@ function BonLivraison(props) {
   const [formData, setFormData] = useState({
     client: "",
     date: todayDate(),
-    user: "admin admin",
+    user: "admin.admin",
     numCarnet: "",
     numBL: "",
     infos: " ",
   });
 
-  const { listBL, setListBL } = useContext(ContextClientsUsers);
+  const [listBL, setListBL] = useState([]);
+  const [listClients, setListClients] = useState([]);
+  const [listUsers, setListUsers] = useState([]);
   const [affichageBL, setViewBL] = useState([]);
   const [affichageBloc, setAffichageBloc] = useState("");
   const [affichageValid, setAffichageValid] = useState(true);
   const [triBL, setTriBL] = useState("date");
+
+  useEffect(() => {
+    const dataBL = async () => {
+      await axios
+        .get(`http://localhost:3001/api/bl`, {
+          headers: {
+            Authorization: localStorage.getItem("user"),
+          },
+        })
+        .then((res) => {
+          setListBL(res.data.results);
+        })
+        .catch((error) => {
+          if (error.response && error.response.data.authError) {
+            if (localStorage.getItem("user")) {
+              localStorage.removeItem("user");
+            }
+            window.location.reload();
+          }
+        });
+    };
+    const dataClients = async () => {
+      await axios
+        .get(`http://localhost:3001/api/client`, {
+          headers: {
+            Authorization: localStorage.getItem("user"),
+          },
+        })
+        .then((res) => {
+          setListClients(res.data.results);
+        })
+        .catch((error) => {
+          if (error.response && error.response.data.authError) {
+            if (localStorage.getItem("user")) {
+              localStorage.removeItem("user");
+            }
+            window.location.reload();
+          }
+        });
+    };
+    const dataUsers = async () => {
+      await axios
+        .get(`http://localhost:3001/api/user`, {
+          headers: {
+            Authorization: localStorage.getItem("user"),
+          },
+        })
+        .then((res) => {
+          setListUsers(res.data.results);
+        })
+        .catch((error) => {
+          if (error.response && error.response.data.authError) {
+            if (localStorage.getItem("user")) {
+              localStorage.removeItem("user");
+            }
+            window.location.reload();
+          }
+        });
+    };
+    dataBL();
+    dataClients();
+    dataUsers();
+  }, []);
 
   const setAffichageBL = (items) => {
     let filteredBL = [];
@@ -52,6 +117,10 @@ function BonLivraison(props) {
   }, [affichageValid]);
 
   const contextValue = {
+    listClients,
+    listUsers,
+    setListClients,
+    setListUsers,
     listBL,
     affichageBL,
     setListBL,
