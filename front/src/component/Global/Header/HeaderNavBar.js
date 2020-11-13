@@ -12,7 +12,7 @@ function HeaderNavBar(props) {
   const isAdmin = props.isAdmin;
 
   return (
-    <Nav className="group-nav d-flex justify-content-end">
+    <div className="d-flex justify-content-around col-12 col-xl-3 margin-header">
       {isAuthenticated() === true ? (
         <>
           <Link to="/bl" className="d-flex justify-content-center flex-wrap">
@@ -41,7 +41,7 @@ function HeaderNavBar(props) {
       ) : (
         ""
       )}
-    </Nav>
+    </div>
   );
 }
 

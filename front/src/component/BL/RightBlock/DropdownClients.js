@@ -25,7 +25,11 @@ function DropdownClients(props) {
         ))}
       </datalist>
       <div>
-        <Form.Label className="date-BL">{errorClient}</Form.Label>
+        {errorClient !== "" ? (
+          <Form.Label className="date-BL">{errorClient}</Form.Label>
+        ) : (
+          ""
+        )}
         <div className="d-flex justify-content-center">
           <a href="google.com">Créer un nouveau client</a>
         </div>

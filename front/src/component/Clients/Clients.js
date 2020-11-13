@@ -10,6 +10,7 @@ function Clients(props) {
   const [affichageBloc, setAffichageBloc] = useState("");
   const [listBL, setListBL] = useState([]);
   const [listClients, setListClients] = useState([]);
+  const [errorCode, setErrorCode] = useState("");
 
   useEffect(() => {
     const dataBL = async () => {
@@ -98,6 +99,8 @@ function Clients(props) {
     setAffichageBloc,
     formData,
     setFormData,
+    errorCode,
+    setErrorCode,
   };
 
   useEffect(() => {

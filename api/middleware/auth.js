@@ -12,7 +12,7 @@ module.exports = (req, res, next) => {
     if (userRole === "user" || userRole === "admin") {
       next();
     } else {
-      throw "Invalid user ID";
+      throw "Invalid user";
     }
   } catch {
     res.status(401).json({

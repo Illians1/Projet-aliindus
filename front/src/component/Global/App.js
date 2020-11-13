@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import Header from "./Header/Header";
 import Footer from "./Footer";
 import BonLivraison from "../BL/BonLivraison";

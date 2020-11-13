@@ -1,11 +1,9 @@
-import React, { useState, useContext } from "react";
+import React, { useContext } from "react";
 import DropdownButton from "react-bootstrap/DropdownButton";
 import Dropdown from "react-bootstrap/Dropdown";
 import ContextBL from "../../Context/ContextBL";
 
 function DropDownDate() {
-  const [dateButton, setDateButton] = useState("Toutes les dates");
-
   const { listBL, setAffichageBL } = useContext(ContextBL);
 
   const triDate = (code) => {
@@ -24,17 +22,14 @@ function DropDownDate() {
     switch (code) {
       case "mois": {
         filteredBL = listBL.filter((BL) => filtre(30, BL.date));
-        setDateButton("Moins d'un mois");
         break;
       }
       case "an": {
         filteredBL = listBL.filter((BL) => filtre(365, BL.date));
-        setDateButton("Moins d'un an");
         break;
       }
       default: {
         filteredBL = listBL;
-        setDateButton("Toutes les dates");
       }
     }
     setAffichageBL(filteredBL);

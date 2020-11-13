@@ -13,30 +13,31 @@ function Header(props) {
   };
 
   return (
-    <header>
-      <Navbar bg="light" className="justify-content-between" expand="lg">
-        <Navbar.Brand className="navbar-brand">
+    <header className="container-fluid">
+      <div className="header-row row">
+        <div className="col-12 col-xl-2 d-flex justify-content-center margin-header">
           <Link to="/bl">
-            <img
-              className="logo"
-              alt="logo"
-              src={require("../../../images/aliindustrie.jpg")}
-            ></img>
+            <img className="logo" alt="logo" src="/images/aliindustrie.jpg" />
           </Link>
-        </Navbar.Brand>
-        <span className="title"> Gestion des bons de livraison</span>
-        <Navbar.Toggle aria-controls="basic-navbar-nav" />
+        </div>
+        <span className="title d-none d-xl-inline-block col-xl-4 margin-header text-center">
+          Gestion des bons de livraison
+        </span>
         {isAuthenticated() === true ? (
-          <>
-            <Button onClick={disconnect} variant="secondary">
+          <div className="col-12 col-xl-3 d-flex justify-content-center margin-header align-items-center">
+            <Button
+              onClick={disconnect}
+              variant="secondary"
+              className="h-50 w-50"
+            >
               Se déconnecter
             </Button>
-          </>
+          </div>
         ) : (
           ""
         )}
         <HeaderNavBar isAuthenticated={isAuthenticated} isAdmin={isAdmin} />
-      </Navbar>
+      </div>
     </header>
   );
 }

@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext } from "react";
 import Form from "react-bootstrap/Form";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
@@ -8,7 +8,13 @@ import ContextUsers from "../../Context/ContextUsers";
 import DropdownRoles from "./DropdownRoles";
 
 function FormUsers() {
-  const { affichageBloc, formData, setFormData } = useContext(ContextUsers);
+  const {
+    affichageBloc,
+    formData,
+    setFormData,
+    errorAccount,
+    setErrorAccount,
+  } = useContext(ContextUsers);
 
   const autoComplete = () => {
     let newForm = Object.assign({}, formData);
@@ -25,6 +31,7 @@ function FormUsers() {
     let newForm = Object.assign({}, formData);
     newForm[e.target.name] = e.target.value;
     setFormData(newForm);
+    setErrorAccount("");
   };
 
   const capitalizeFirstLetter = (string) => {
@@ -64,6 +71,17 @@ function FormUsers() {
             console.log(res);
             console.log(res.data);
             window.location.reload();
+          })
+          .catch((error) => {
+            if (error.response && error.response.data.authError) {
+              if (localStorage.getItem("user")) {
+                localStorage.removeItem("user");
+              }
+              window.location.reload();
+            }
+            if (error.response && error.response.data.errorAccount) {
+              setErrorAccount(error.response.data.errorAccount);
+            }
           })
       : axios
           .put(
@@ -166,6 +184,11 @@ function FormUsers() {
               onFocus={autoComplete}
               required
             />
+            {errorAccount !== "" ? (
+              <Form.Label className="date-BL">{errorAccount}</Form.Label>
+            ) : (
+              ""
+            )}
           </Form.Group>
         ) : (
           ""

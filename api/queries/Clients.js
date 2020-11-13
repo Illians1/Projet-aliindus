@@ -49,8 +49,7 @@ exports.newClient = (req, res, next) => {
     console.log(sql);
     if (error) {
       res.status(400).json({
-        error,
-        sql,
+        errorCode: "Code client déja existant !",
       });
     } else {
       res.status(201).json({

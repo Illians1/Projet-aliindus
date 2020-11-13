@@ -22,8 +22,15 @@ select {
 a {
   font-weight: bold;
 }
-header {
-  height: 10vh;
+
+@media screen and (max-width: 576px) {
+  .margin-header {
+    margin-bottom: 15px;
+  }
+}
+
+.header-row {
+  background-color: white;
 }
 
 h1 {
@@ -40,8 +47,8 @@ h1 {
 }
 
 .logo {
-  height: 100%;
-  width: auto;
+  height: auto;
+  max-width: 100%;
 }
 
 .nav-icon {

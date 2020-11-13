@@ -8,10 +8,17 @@ import ContextClients from "../../Context/ContextClients";
 import DropdownVille from "./DropdownVille";
 
 function FormClient() {
-  const { affichageBloc, formData, setFormData } = useContext(ContextClients);
+  const {
+    affichageBloc,
+    formData,
+    setFormData,
+    errorCode,
+    setErrorCode,
+  } = useContext(ContextClients);
   const [villeData, setVilleData] = useState([]);
 
   const autoCompleteAddress = (e, type) => {
+    setErrorCode("");
     const value = e.target.value;
     switch (type) {
       case "ville": {
@@ -85,6 +92,9 @@ function FormClient() {
         }
         break;
       }
+      default: {
+        break;
+      }
     }
   };
 
@@ -95,6 +105,7 @@ function FormClient() {
       let newFormData = Object.assign({}, formData);
       newFormData[e.target.name] = e.target.value;
       setFormData(newFormData);
+      setErrorCode("");
     }
   };
 
@@ -133,6 +144,9 @@ function FormClient() {
                 localStorage.removeItem("user");
               }
               window.location.reload();
+            }
+            if (error.response && error.response.data.errorCode) {
+              setErrorCode(error.response.data.errorCode);
             }
           })
       : axios
@@ -216,6 +230,11 @@ function FormClient() {
               onChange={(e) => newFormData(e, "")}
               required
             />
+            {errorCode !== "" ? (
+              <Form.Label className="date-BL">{errorCode}</Form.Label>
+            ) : (
+              ""
+            )}
           </Form.Group>
         ) : (
           ""

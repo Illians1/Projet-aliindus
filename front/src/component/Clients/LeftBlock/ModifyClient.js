@@ -2,7 +2,9 @@ import React, { useContext } from "react";
 import ContextClients from "../../Context/ContextClients";
 
 function ModifyClient(props) {
-  const { setAffichageBloc, setFormData } = useContext(ContextClients);
+  const { setAffichageBloc, setFormData, setErrorCode } = useContext(
+    ContextClients
+  );
 
   const modifyBlock = () => {
     let item = props.item;
@@ -16,6 +18,7 @@ function ModifyClient(props) {
       codePostal: item.code_postal,
       departement: item.nom_departement,
     });
+    setErrorCode("");
     window.scrollTo(0, 0);
   };
 

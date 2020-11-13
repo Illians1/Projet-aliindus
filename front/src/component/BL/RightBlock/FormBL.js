@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext } from "react";
 import Form from "react-bootstrap/Form";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
@@ -15,7 +15,6 @@ function FormBL(props) {
     setFormData,
     listUsers,
     listClients,
-    errorClient,
     setErrorClient,
   } = useContext(ContextBL);
 

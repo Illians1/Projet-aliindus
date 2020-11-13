@@ -2,7 +2,9 @@ import React, { useContext } from "react";
 import ContextUsers from "../../Context/ContextUsers";
 
 function ModifyUser(props) {
-  const { setAffichageBloc, setFormData } = useContext(ContextUsers);
+  const { setAffichageBloc, setFormData, setErrorAccount } = useContext(
+    ContextUsers
+  );
 
   const modifyBlock = () => {
     let item = props.item;
@@ -16,6 +18,7 @@ function ModifyUser(props) {
       password: "",
       repeatPassword: "",
     });
+    setErrorAccount("");
     window.scrollTo(0, 0);
   };
 

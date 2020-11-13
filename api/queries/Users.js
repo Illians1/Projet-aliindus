@@ -39,7 +39,7 @@ exports.signup = (req, res, next) => {
     } else {
       if (results.length > 0) {
         res.status(403).json({
-          errorMessage: "Pseudo déja existant !",
+          errorAccount: "Pseudo déja existant !",
         });
       } else {
         const password1 = req.body.password1;

@@ -4,9 +4,12 @@ import ContextClients from "../../Context/ContextClients";
 import { BsArrowLeftShort } from "react-icons/bs";
 
 function RightBlockBL() {
-  const { affichageBloc, setAffichageBloc, setFormData } = useContext(
-    ContextClients
-  );
+  const {
+    affichageBloc,
+    setAffichageBloc,
+    setFormData,
+    setErrorCode,
+  } = useContext(ContextClients);
 
   const backToNewClient = () => {
     setAffichageBloc("");
@@ -18,6 +21,7 @@ function RightBlockBL() {
       codePostal: "",
       departement: "",
     });
+    setErrorCode("");
   };
   return (
     <div className="nouveau-bl">

@@ -1,6 +1,5 @@
 import React, { useEffect, useContext } from "react";
 import axios from "axios";
-import ContextClientsUsers from "../../Context/ContextClientsUsers";
 import ContextUsers from "../../Context/ContextUsers";
 import ModifyUser from "./ModifyUser";
 import TitleListUsers from "./TitleListUsers";
