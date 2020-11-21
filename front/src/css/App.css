@@ -23,13 +23,12 @@ a {
   font-weight: bold;
 }
 
-@media screen and (max-width: 576px) {
-  .margin-header {
-    margin-bottom: 15px;
-  }
+.margin-header {
+  margin-top: 10px;
 }
 
-.header-row {
+.header-row,
+.footer-row {
   background-color: white;
 }
 
@@ -223,13 +222,11 @@ input[type="text"]:placeholder {
   min-height: 75vh;
   margin: 2.2vh 2.5%;
   border-radius: 15px;
-  width: 25%;
   background-color: #fff;
-  display: inline-block;
 }
 
 .texte-historique {
-  margin: 10%;
+  margin: 5%;
   padding: 15px;
 }
 
@@ -314,16 +311,14 @@ input[type="text"]:placeholder {
 
 .nouveau-bl {
   border: 0.25vh solid black;
-  margin: 2.2vh 2.5% 2.2vh 0;
+  margin: 2.2vh 2.5%;
   border-radius: 15px;
-  width: 67.5%;
   background-color: #fff;
-  height: 75vh;
-  float: right;
+  min-height: 75vh;
 }
 
 .nouveau-bl-child {
-  margin: 5% 20%;
+  margin: 5% 5%;
 }
 
 .form-new-bl {
@@ -340,10 +335,14 @@ label {
   text-align: center;
 }
 
+.parent-back-to-new {
+  margin-top: 10px;
+  margin-left: 10px;
+  display: flex;
+  justify-content: left;
+}
+
 .link-back-to-new {
-  position: relative;
-  top: 25px;
-  left: 45px;
   color: #0056b3;
   font-weight: bold;
 }
@@ -362,10 +361,34 @@ label {
 footer {
   height: 10vh;
   width: 100%;
+  position: absolute;
+  bottom: 0;
 }
 
 .footer-navbar {
   height: 100%;
   font-style: italic;
   font-size: medium;
+  width: 100%;
+}
+
+.main {
+  min-height: 100vh;
+}
+
+.main-element {
+  padding-bottom: 10vh;
+}
+
+@media screen and (max-width: 576px) {
+  .margin-header {
+    margin-bottom: 15px;
+  }
+  .input-text-form {
+    margin: 0 !important;
+  }
+  .parent-back-to-new {
+    margin-left: 0;
+    justify-content: center;
+  }
 }

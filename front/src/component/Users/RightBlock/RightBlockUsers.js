@@ -20,23 +20,27 @@ function RightBlockUsers() {
   };
 
   return (
-    <div className="nouveau-bl">
-      {affichageBloc === "" ? (
-        ""
-      ) : (
-        <h5 className="link-back-to-new" onClick={backToNewUser}>
-          <BsArrowLeftShort className="arrow-back-to-new-bl"></BsArrowLeftShort>
-          Retour création d'utilisateur
-        </h5>
-      )}
-      <div className="nouveau-bl-child">
-        <h1>
-          {affichageBloc === ""
-            ? "Enregistrement d'un nouvel utilisateur"
-            : "Modifier l'utilisateur"}
-        </h1>
-        <div className="form-new-bl">
-          <FormUsers />
+    <div className="col-12 col-xl-8 order-1 order-xl-2">
+      <div className="nouveau-bl">
+        {affichageBloc === "" ? (
+          ""
+        ) : (
+          <div className="parent-back-to-new">
+            <h5 className="link-back-to-new" onClick={backToNewUser}>
+              <BsArrowLeftShort className="arrow-back-to-new-bl"></BsArrowLeftShort>
+              Retour création d'utilisateur
+            </h5>
+          </div>
+        )}
+        <div className="nouveau-bl-child row d-flex justify-content-center align-items-center">
+          <h1>
+            {affichageBloc === ""
+              ? "Enregistrement d'un nouvel utilisateur"
+              : "Modifier l'utilisateur"}
+          </h1>
+          <div className="form-new-bl">
+            <FormUsers />
+          </div>
         </div>
       </div>
     </div>

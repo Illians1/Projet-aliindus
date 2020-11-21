@@ -145,11 +145,11 @@ function FormUsers() {
   return (
     <Form onSubmit={formSubmit}>
       <Form.Row>
-        <Form.Group as={Col} className="text-center">
+        <Form.Group as={Col} className="text-center col-12 col-xl-6">
           <Form.Label>Nom :</Form.Label>
           <Form.Control
             value={formData.nom}
-            className="border border-secondary"
+            className="border border-secondary input-text-form"
             placeholder="Nom de l'utilisateur"
             type="text"
             name="nom"
@@ -157,11 +157,11 @@ function FormUsers() {
             required
           />
         </Form.Group>
-        <Form.Group as={Col} className="text-center">
+        <Form.Group as={Col} className="text-center col-12 col-xl-6">
           <Form.Label>Prénom :</Form.Label>
           <Form.Control
             value={formData.prenom}
-            className="border border-secondary"
+            className="border border-secondary input-text-form"
             type="text"
             name="prenom"
             placeholder="Prénom de l'utilisateur"
@@ -172,11 +172,15 @@ function FormUsers() {
       </Form.Row>
       <Form.Row>
         {affichageBloc === "" ? (
-          <Form.Group id="autocomplete" as={Col} className="text-center">
+          <Form.Group
+            id="autocomplete"
+            as={Col}
+            className="text-center col-12 col-xl-6"
+          >
             <Form.Label>Nom de compte :</Form.Label>
             <Form.Control
               value={formData.pseudo}
-              className="border border-secondary"
+              className="border border-secondary input-text-form"
               type="text"
               name="pseudo"
               placeholder="Pseudo"
@@ -196,11 +200,11 @@ function FormUsers() {
         <DropdownRoles formData={formData} setFormData={newFormData} />
       </Form.Row>
       <Form.Row>
-        <Form.Group as={Col} className="text-center">
+        <Form.Group as={Col} className="text-center col-12 col-xl-6">
           <Form.Label>Mot de passe :</Form.Label>
           <Form.Control
             value={formData.password}
-            className="border border-secondary text-center"
+            className="border border-secondary text-center input-text-form"
             placeholder="Mot de passe"
             type="password"
             name="password"
@@ -208,11 +212,11 @@ function FormUsers() {
             required
           />
         </Form.Group>
-        <Form.Group as={Col} className="text-center">
+        <Form.Group as={Col} className="text-center col-12 col-xl-6">
           <Form.Label>Répeter le mot de passe</Form.Label>
           <Form.Control
             value={formData.repeatPassword}
-            className="border border-secondary text-center"
+            className="border border-secondary text-center input-text-form"
             type="password"
             placeholder="Répeter le mot de passe"
             name="repeatPassword"

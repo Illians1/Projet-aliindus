@@ -19,7 +19,7 @@ function DropdownRoles(props) {
   }, []);
 
   return (
-    <Form.Group as={Col} className="text-center">
+    <Form.Group as={Col} className="text-center col-12 col-xl-6">
       <Form.Label>Role de l'utilisateur :</Form.Label>
       <div className="select text-center">
         <Form.Control

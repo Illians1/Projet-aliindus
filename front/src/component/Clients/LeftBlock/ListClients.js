@@ -41,31 +41,33 @@ function ListClients() {
   }, []);
 
   return (
-    <div className="historique-bl">
-      <div className="texte-historique">
-        <div className="header-historique">
-          <FilterClients />
-          <ButtonDisplayValidClient />
-        </div>
-        {affichageClients.map((item, index) => (
-          <div key={index}>
-            <TitleListClients item={item} />
-            <ul className="list-historique">
-              {item.visible === false ? (
-                ""
-              ) : (
-                <li>
-                  <DepartementClient item={item} />
-                  <AdresseClient item={item} />
-                  <CodePostalClient item={item} />
-                  <VilleClient item={item} />
-                  <ListeBLNonValides item={item} />
-                  <ModifyClient item={item} />
-                </li>
-              )}
-            </ul>
+    <div className="col-12 col-xl-4 order-2 order-xl-1">
+      <div className="historique-bl d-flex justify-content-center">
+        <div className="texte-historique">
+          <div className="header-historique">
+            <FilterClients />
+            <ButtonDisplayValidClient />
           </div>
-        ))}
+          {affichageClients.map((item, index) => (
+            <div key={index}>
+              <TitleListClients item={item} />
+              <ul className="list-historique">
+                {item.visible === false ? (
+                  ""
+                ) : (
+                  <li>
+                    <DepartementClient item={item} />
+                    <AdresseClient item={item} />
+                    <CodePostalClient item={item} />
+                    <VilleClient item={item} />
+                    <ListeBLNonValides item={item} />
+                    <ModifyClient item={item} />
+                  </li>
+                )}
+              </ul>
+            </div>
+          ))}
+        </div>
       </div>
     </div>
   );

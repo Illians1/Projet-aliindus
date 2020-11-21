@@ -7,7 +7,7 @@ function DropdownUsers(props) {
   const { listUsers } = useContext(ContextBL);
 
   return (
-    <Form.Group as={Col} className="text-center">
+    <Form.Group as={Col} className="text-center col-12 col-xl-6">
       <Form.Label>Nom du créateur du BL :</Form.Label>
       <div className="select">
         <Form.Control

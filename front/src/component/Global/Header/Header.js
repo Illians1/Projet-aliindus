@@ -1,5 +1,4 @@
 import React from "react";
-import Navbar from "react-bootstrap/Navbar";
 import HeaderNavBar from "./HeaderNavBar";
 import { Link } from "react-router-dom";
 import Button from "react-bootstrap/Button";
@@ -13,8 +12,8 @@ function Header(props) {
   };
 
   return (
-    <header className="container-fluid">
-      <div className="header-row row">
+    <header className="container-fluid p-0">
+      <div className="header-row row m-0">
         <div className="col-12 col-xl-2 d-flex justify-content-center margin-header">
           <Link to="/bl">
             <img className="logo" alt="logo" src="/images/aliindustrie.jpg" />
@@ -24,12 +23,8 @@ function Header(props) {
           Gestion des bons de livraison
         </span>
         {isAuthenticated() === true ? (
-          <div className="col-12 col-xl-3 d-flex justify-content-center margin-header align-items-center">
-            <Button
-              onClick={disconnect}
-              variant="secondary"
-              className="h-50 w-50"
-            >
+          <div className="col-12 col-xl-3 d-flex justify-content-center margin-header button-header align-items-center">
+            <Button onClick={disconnect} variant="secondary">
               Se déconnecter
             </Button>
           </div>

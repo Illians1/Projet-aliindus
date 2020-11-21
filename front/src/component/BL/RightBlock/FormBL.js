@@ -147,7 +147,7 @@ function FormBL(props) {
         />
       </Form.Row>
       <Form.Row>
-        <Form.Group as={Col} className="text-center">
+        <Form.Group as={Col} className="text-center col-12 col-xl-4">
           <Form.Label>Date :</Form.Label>
           <Form.Control
             value={formData.date}
@@ -158,7 +158,7 @@ function FormBL(props) {
             required
           />
         </Form.Group>
-        <Form.Group as={Col} className="text-center">
+        <Form.Group as={Col} className="text-center col-6 col-xl-4">
           <Form.Label>Numéro de carnet :</Form.Label>
           <Form.Control
             value={formData.numCarnet}
@@ -171,8 +171,8 @@ function FormBL(props) {
             required
           />
         </Form.Group>
-        <Form.Group as={Col} className="text-center">
-          <Form.Label>Numéro de BL :</Form.Label>
+        <Form.Group as={Col} className="text-center col-6 col-xl-4">
+          <Form.Label>Numéro de BL : &emsp;</Form.Label>
           <Form.Control
             value={formData.numBL}
             className="border border-secondary"

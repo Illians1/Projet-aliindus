@@ -7,11 +7,11 @@ function DropdownClients(props) {
   const { listClients, errorClient } = useContext(ContextBL);
 
   return (
-    <Form.Group as={Col} className="text-center">
+    <Form.Group as={Col} className="text-center col-12 col-xl-6">
       <Form.Label>Nom du client :</Form.Label>
       <Form.Control
         value={props.formData.client}
-        className="border border-primary"
+        className="border border-primary input-text-form"
         type="text"
         placeholder="Nom du client"
         list="client"

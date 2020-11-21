@@ -26,23 +26,27 @@ function RightBlockBL() {
   };
 
   return (
-    <div className="nouveau-bl">
-      {affichageBloc === "" ? (
-        ""
-      ) : (
-        <h5 className="link-back-to-new" onClick={backToNewBL}>
-          <BsArrowLeftShort className="arrow-back-to-new-bl"></BsArrowLeftShort>
-          Retour création de BL
-        </h5>
-      )}
-      <div className="nouveau-bl-child">
-        <h1>
-          {affichageBloc === ""
-            ? "Enregistrement d'un nouveau Bon de Livraison"
-            : "Modifier le bon de livraison"}
-        </h1>
-        <div className="form-new-bl">
-          <FormBL />
+    <div className="col-12 col-xl-8 order-1 order-xl-2">
+      <div className="nouveau-bl">
+        {affichageBloc === "" ? (
+          ""
+        ) : (
+          <div className="parent-back-to-new">
+            <h5 className="link-back-to-new" onClick={backToNewBL}>
+              <BsArrowLeftShort className="arrow-back-to-new-bl"></BsArrowLeftShort>
+              Retour création de BL
+            </h5>
+          </div>
+        )}
+        <div className="nouveau-bl-child row d-flex justify-content-center align-items-center">
+          <h1>
+            {affichageBloc === ""
+              ? "Enregistrement d'un nouveau Bon de Livraison"
+              : "Modifier le bon de livraison"}
+          </h1>
+          <div className="form-new-bl">
+            <FormBL />
+          </div>
         </div>
       </div>
     </div>

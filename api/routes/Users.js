@@ -8,7 +8,7 @@ const admin = require("../middleware/admin");
 router.get("/", auth, UsersCtrl.getAllUsers);
 router.get("/role", auth, UsersCtrl.getAllRoles);
 router.post("/signup/", admin, UsersCtrl.signup);
-router.post("/login/", admin, UsersCtrl.login);
+router.post("/login/", UsersCtrl.login);
 router.put("/modify", admin, UsersCtrl.modifyUser);
 router.delete("/delete/", admin, UsersCtrl.deleteUser);
 

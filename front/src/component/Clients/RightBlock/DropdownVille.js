@@ -6,11 +6,11 @@ function DropdownClients(props) {
   const villeData = props.villeData;
 
   return (
-    <Form.Group as={Col} className="text-center">
+    <Form.Group as={Col} className="text-center col-12 col-xl-4">
       <Form.Label>Ville :</Form.Label>
       <Form.Control
         value={props.formData.ville}
-        className="border border-secondary"
+        className="border border-secondary input-text-form"
         type="text"
         placeholder="Ville"
         list="ville"

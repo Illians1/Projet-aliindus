@@ -23,32 +23,34 @@ function ListUsers() {
   }, []);
 
   return (
-    <div className="historique-bl">
-      <div className="texte-historique">
-        <div className="title-users">Liste des utilisateurs :</div>
-        <div className="header-historique"></div>
-        {affichageUsers.map((item, index) => (
-          <div key={index}>
-            <TitleListUsers item={item} />
-            <ul className="list-historique">
-              {item.visible === false ? (
-                ""
-              ) : (
-                <li>
-                  <div>
-                    Role :{" "}
-                    {item.role === null ? (
-                      <span className="date-BL">? </span>
-                    ) : (
-                      <span className="date-BL">{item.role} </span>
-                    )}
-                  </div>
-                  <ModifyUser item={item} />
-                </li>
-              )}
-            </ul>
-          </div>
-        ))}
+    <div className="col-12 col-xl-4 order-2 order-xl-1">
+      <div className="historique-bl d-flex justify-content-center">
+        <div className="texte-historique">
+          <div className="title-users">Liste des utilisateurs :</div>
+          <div className="header-historique"></div>
+          {affichageUsers.map((item, index) => (
+            <div key={index}>
+              <TitleListUsers item={item} />
+              <ul className="list-historique">
+                {item.visible === false ? (
+                  ""
+                ) : (
+                  <li>
+                    <div>
+                      Role :{" "}
+                      {item.role === null ? (
+                        <span className="date-BL">? </span>
+                      ) : (
+                        <span className="date-BL">{item.role} </span>
+                      )}
+                    </div>
+                    <ModifyUser item={item} />
+                  </li>
+                )}
+              </ul>
+            </div>
+          ))}
+        </div>
       </div>
     </div>
   );

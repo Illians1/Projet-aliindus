@@ -206,11 +206,11 @@ function FormClient() {
   return (
     <Form onSubmit={formSubmit}>
       <Form.Row>
-        <Form.Group as={Col} className="text-center">
+        <Form.Group as={Col} className="text-center col-12 col-xl-6">
           <Form.Label>Nom du client :</Form.Label>
           <Form.Control
             value={formData.nom}
-            className="border border-secondary"
+            className="border border-secondary input-text-form"
             placeholder="Nom du client"
             type="text"
             name="nom"
@@ -219,11 +219,11 @@ function FormClient() {
           />
         </Form.Group>
         {affichageBloc === "" ? (
-          <Form.Group as={Col} className="text-center">
+          <Form.Group as={Col} className="text-center col-12 col-xl-6">
             <Form.Label>Code client :</Form.Label>
             <Form.Control
               value={formData.code}
-              className="border border-secondary"
+              className="border border-secondary input-text-form"
               type="text"
               name="code"
               placeholder="Code client"
@@ -245,7 +245,7 @@ function FormClient() {
           <Form.Label>Adresse :</Form.Label>
           <Form.Control
             value={formData.adresse}
-            className="border border-secondary"
+            className="border border-secondary input-text-form"
             type="text"
             name="adresse"
             placeholder="Adresse du client"
@@ -261,11 +261,11 @@ function FormClient() {
           formData={formData}
           setFormData={newFormData}
         />
-        <Form.Group as={Col} className="text-center">
+        <Form.Group as={Col} className="text-center col-12 col-xl-4">
           <Form.Label>Code Postal :</Form.Label>
           <Form.Control
             value={formData.codePostal}
-            className="border border-secondary"
+            className="border border-secondary input-text-form"
             placeholder="Code Postal"
             type="text"
             name="codePostal"
@@ -273,11 +273,11 @@ function FormClient() {
             required
           />
         </Form.Group>
-        <Form.Group as={Col} className="text-center">
+        <Form.Group as={Col} className="text-center col-12 col-xl-4">
           <Form.Label>Nom du département :</Form.Label>
           <Form.Control
             value={formData.departement}
-            className="border border-secondary"
+            className="border border-secondary input-text-form"
             type="text"
             placeholder="Nom du département"
             name="departement"

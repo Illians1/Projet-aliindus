@@ -22,11 +22,14 @@ function App() {
   };
 
   return (
-    <div style={{ background: "#B8B8B7" }}>
+    <div
+      style={{ background: "#B8B8B7" }}
+      className="p-0 container-fluid main position-relative"
+    >
       <BrowserRouter>
         <ScrollToTop />
         <Header isAuthenticated={isAuthenticated} isAdmin={isAdmin} />
-        <div className="main">
+        <div className="row main-element m-0">
           <Switch>
             <Route exact path="/" render={() => <Redirect to="/bl" />} />
             <Route

@@ -1,19 +1,12 @@
 import React from "react";
-import Navbar from "react-bootstrap/Navbar";
 
 function Footer() {
   return (
-    <>
-      <footer>
-        <Navbar
-          bg="light"
-          className=" footer-navbar justify-content-center"
-          expand="lg"
-        >
-          <p>Créé par Aouida Mehdi.</p>
-        </Navbar>
-      </footer>
-    </>
+    <footer>
+      <div className="footer-row footer-navbar d-flex justify-content-center align-items-center">
+        <p className="text-center">Créé par Aouida Mehdi.</p>
+      </div>
+    </footer>
   );
 }
 
