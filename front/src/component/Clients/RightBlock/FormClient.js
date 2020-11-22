@@ -119,64 +119,64 @@ function FormClient() {
     const departement = formData.departement.toUpperCase();
     affichageBloc === ""
       ? axios
-          .post(
-            `http://localhost:3001/api/client/new/`,
-            {
-              nom: nom,
-              code: code,
-              adresse: adresse,
-              ville: ville,
-              codePostal: formData.codePostal,
-              departement: departement,
+        .post(
+          `http://localhost:3001/api/client/new/`,
+          {
+            nom: nom,
+            code: code,
+            adresse: adresse,
+            ville: ville,
+            codePostal: formData.codePostal,
+            departement: departement,
+          },
+          {
+            headers: {
+              Authorization: localStorage.getItem("user"),
             },
-            {
-              headers: {
-                Authorization: localStorage.getItem("user"),
-              },
+          }
+        )
+        .then(() => {
+          window.location.reload();
+        })
+        .catch((error) => {
+          if (error.response && error.response.data.authError) {
+            if (localStorage.getItem("user")) {
+              localStorage.removeItem("user");
             }
-          )
-          .then(() => {
             window.location.reload();
-          })
-          .catch((error) => {
-            if (error.response && error.response.data.authError) {
-              if (localStorage.getItem("user")) {
-                localStorage.removeItem("user");
-              }
-              window.location.reload();
-            }
-            if (error.response && error.response.data.errorCode) {
-              setErrorCode(error.response.data.errorCode);
-            }
-          })
+          }
+          if (error.response && error.response.data.errorCode) {
+            setErrorCode(error.response.data.errorCode);
+          }
+        })
       : axios
-          .put(
-            `http://localhost:3001/api/client/modify/`,
-            {
-              id: id,
-              nom: nom,
-              adresse: adresse,
-              ville: ville,
-              codePostal: formData.codePostal,
-              departement: departement,
+        .put(
+          `http://localhost:3001/api/client/modify/`,
+          {
+            id: id,
+            nom: nom,
+            adresse: adresse,
+            ville: ville,
+            codePostal: formData.codePostal,
+            departement: departement,
+          },
+          {
+            headers: {
+              Authorization: localStorage.getItem("user"),
             },
-            {
-              headers: {
-                Authorization: localStorage.getItem("user"),
-              },
+          }
+        )
+        .then(() => {
+          window.location.reload();
+        })
+        .catch((error) => {
+          if (error.response && error.response.data.authError) {
+            if (localStorage.getItem("user")) {
+              localStorage.removeItem("user");
             }
-          )
-          .then(() => {
             window.location.reload();
-          })
-          .catch((error) => {
-            if (error.response && error.response.data.authError) {
-              if (localStorage.getItem("user")) {
-                localStorage.removeItem("user");
-              }
-              window.location.reload();
-            }
-          });
+          }
+        });
   };
 
   const confirmerDelete = () => {
@@ -206,7 +206,7 @@ function FormClient() {
   return (
     <Form onSubmit={formSubmit}>
       <Form.Row>
-        <Form.Group as={Col} className="text-center col-12 col-xl-6">
+        <Form.Group as={Col} className={affichageBloc === "" ? "text-center col-12 col-xl-6" : "text-center col-12"} >
           <Form.Label>Nom du client :</Form.Label>
           <Form.Control
             value={formData.nom}
@@ -233,12 +233,12 @@ function FormClient() {
             {errorCode !== "" ? (
               <Form.Label className="date-BL">{errorCode}</Form.Label>
             ) : (
-              ""
-            )}
+                ""
+              )}
           </Form.Group>
         ) : (
-          ""
-        )}
+            ""
+          )}
       </Form.Row>
       <Form.Row>
         <Form.Group id="autocomplete" as={Col} className="text-center">
@@ -297,10 +297,10 @@ function FormClient() {
           {affichageBloc === "" ? (
             ""
           ) : (
-            <Button size="lg" variant="danger" onClick={confirmerDelete} block>
-              Supprimer le Client
-            </Button>
-          )}
+              <Button size="lg" variant="danger" onClick={confirmerDelete} block>
+                Supprimer le Client
+              </Button>
+            )}
         </div>
       </Form.Group>
     </Form>

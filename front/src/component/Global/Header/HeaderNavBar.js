@@ -11,16 +11,16 @@ function HeaderNavBar(props) {
   const isAdmin = props.isAdmin;
 
   return (
-    <div className="d-flex justify-content-around col-12 col-xl-3 margin-header">
+    <div className="d-flex justify-content-around align-items-center col-12 col-xl-3 margin-header">
       {isAuthenticated() === true ? (
         <>
-          <Link to="/bl" className="d-flex justify-content-center flex-wrap">
+          <Link to="/bl" className="d-flex justify-content-center align-items-center flex-wrap">
             <BsBookHalf className="nav-icon" />
             <span className="nav-text">Gestion BL</span>
           </Link>
           <Link
             to="/clients"
-            className="d-flex justify-content-center flex-wrap"
+            className="d-flex justify-content-center align-items-center flex-wrap"
           >
             <BsBriefcaseFill className="nav-icon" />
             <span className="nav-text">Clients</span>
@@ -28,18 +28,18 @@ function HeaderNavBar(props) {
           {isAdmin() === true ? (
             <Link
               to="/users"
-              className="d-flex justify-content-center flex-wrap"
+              className="d-flex justify-content-center align-items-center flex-wrap"
             >
               <BsFillPersonLinesFill className="nav-icon" />
               <span className="nav-text">Utilisateurs</span>
             </Link>
           ) : (
-            ""
-          )}
+              ""
+            )}
         </>
       ) : (
-        ""
-      )}
+          ""
+        )}
     </div>
   );
 }

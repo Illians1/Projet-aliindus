@@ -14,7 +14,7 @@ function Header(props) {
   return (
     <header className="container-fluid p-0">
       <div className="header-row row m-0">
-        <div className="col-12 col-xl-2 d-flex justify-content-center margin-header">
+        <div className="col-12 col-xl-2 d-flex justify-content-center align-items-center margin-header">
           <Link to="/bl">
             <img className="logo" alt="logo" src="/images/aliindustrie.jpg" />
           </Link>
@@ -29,8 +29,8 @@ function Header(props) {
             </Button>
           </div>
         ) : (
-          ""
-        )}
+            ""
+          )}
         <HeaderNavBar isAuthenticated={isAuthenticated} isAdmin={isAdmin} />
       </div>
     </header>

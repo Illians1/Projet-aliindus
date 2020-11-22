@@ -1,10 +1,14 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import Form from "react-bootstrap/Form";
 import Col from "react-bootstrap/Col";
 import axios from "axios";
+import ContextUsers from "../../Context/ContextUsers";
 
 function DropdownRoles(props) {
   const [listRoles, setListRoles] = useState([]);
+  const {
+    affichageBloc,
+  } = useContext(ContextUsers);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -19,7 +23,7 @@ function DropdownRoles(props) {
   }, []);
 
   return (
-    <Form.Group as={Col} className="text-center col-12 col-xl-6">
+    <Form.Group as={Col} className={affichageBloc === "" ? "text-center col-12 col-xl-6" : "text-center col-12"}>
       <Form.Label>Role de l'utilisateur :</Form.Label>
       <div className="select text-center">
         <Form.Control
@@ -37,7 +41,7 @@ function DropdownRoles(props) {
           ))}
         </Form.Control>
       </div>
-    </Form.Group>
+    </ Form.Group >
   );
 }
 

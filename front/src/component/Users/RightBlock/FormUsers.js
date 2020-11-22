@@ -14,6 +14,8 @@ function FormUsers() {
     setFormData,
     errorAccount,
     setErrorAccount,
+    errorPassword,
+    setErrorPassword,
   } = useContext(ContextUsers);
 
   const autoComplete = () => {
@@ -32,6 +34,7 @@ function FormUsers() {
     newForm[e.target.name] = e.target.value;
     setFormData(newForm);
     setErrorAccount("");
+    setErrorPassword("");
   };
 
   const capitalizeFirstLetter = (string) => {
@@ -51,68 +54,74 @@ function FormUsers() {
     const password2 = formData.repeatPassword;
     affichageBloc === ""
       ? axios
-          .post(
-            `http://localhost:3001/api/user/signup/`,
-            {
-              prenom: prenom,
-              nom: nom,
-              login: formData.pseudo,
-              password1: password1,
-              password2: password2,
-              role: formData.role,
+        .post(
+          `http://localhost:3001/api/user/signup/`,
+          {
+            prenom: prenom,
+            nom: nom,
+            login: formData.pseudo,
+            password1: password1,
+            password2: password2,
+            role: formData.role,
+          },
+          {
+            headers: {
+              Authorization: localStorage.getItem("user"),
             },
-            {
-              headers: {
-                Authorization: localStorage.getItem("user"),
-              },
+          }
+        )
+        .then((res) => {
+          console.log(res);
+          console.log(res.data);
+          window.location.reload();
+        })
+        .catch((error) => {
+          if (error.response && error.response.data.authError) {
+            if (localStorage.getItem("user")) {
+              localStorage.removeItem("user");
             }
-          )
-          .then((res) => {
-            console.log(res);
-            console.log(res.data);
             window.location.reload();
-          })
-          .catch((error) => {
-            if (error.response && error.response.data.authError) {
-              if (localStorage.getItem("user")) {
-                localStorage.removeItem("user");
-              }
-              window.location.reload();
-            }
-            if (error.response && error.response.data.errorAccount) {
-              setErrorAccount(error.response.data.errorAccount);
-            }
-          })
+          }
+          if (error.response && error.response.data.errorAccount) {
+            setErrorAccount(error.response.data.errorAccount);
+          }
+          if (error.response && error.response.data.errorPassword) {
+            setErrorPassword(error.response.data.errorPassword);
+          }
+        })
       : axios
-          .put(
-            `http://localhost:3001/api/user/modify/`,
-            {
-              id: id,
-              prenom: prenom,
-              nom: nom,
-              password1: password1,
-              password2: password2,
-              role: formData.role,
+        .put(
+          `http://localhost:3001/api/user/modify/`,
+          {
+            id: id,
+            prenom: prenom,
+            nom: nom,
+            password1: password1,
+            password2: password2,
+            role: formData.role,
+          },
+          {
+            headers: {
+              Authorization: localStorage.getItem("user"),
             },
-            {
-              headers: {
-                Authorization: localStorage.getItem("user"),
-              },
+          }
+        )
+        .then((res) => {
+          console.log(res);
+          console.log(res.data);
+          window.location.reload();
+        })
+        .catch((error) => {
+          if (error.response && error.response.data.authError) {
+            if (localStorage.getItem("user")) {
+              localStorage.removeItem("user");
             }
-          )
-          .then((res) => {
-            console.log(res);
-            console.log(res.data);
             window.location.reload();
-          })
-          .catch((error) => {
-            if (error.response && error.response.data.authError) {
-              if (localStorage.getItem("user")) {
-                localStorage.removeItem("user");
-              }
-              window.location.reload();
-            }
-          });
+          }
+          if (error.response && error.response.data.errorPassword) {
+            setErrorPassword(error.response.data.errorPassword);
+          }
+        });
   };
 
   const confirmerDelete = () => {
@@ -191,12 +200,12 @@ function FormUsers() {
             {errorAccount !== "" ? (
               <Form.Label className="date-BL">{errorAccount}</Form.Label>
             ) : (
-              ""
-            )}
+                ""
+              )}
           </Form.Group>
         ) : (
-          ""
-        )}
+            ""
+          )}
         <DropdownRoles formData={formData} setFormData={newFormData} />
       </Form.Row>
       <Form.Row>
@@ -211,6 +220,11 @@ function FormUsers() {
             onChange={newFormData}
             required
           />
+          {errorPassword !== "" ? (
+            <Form.Label className="date-BL">{errorPassword}</Form.Label>
+          ) : (
+              ""
+            )}
         </Form.Group>
         <Form.Group as={Col} className="text-center col-12 col-xl-6">
           <Form.Label>Répeter le mot de passe</Form.Label>
@@ -238,10 +252,10 @@ function FormUsers() {
           {affichageBloc === "" ? (
             ""
           ) : (
-            <Button size="lg" variant="danger" onClick={confirmerDelete} block>
-              Supprimer l'utilisateur
-            </Button>
-          )}
+              <Button size="lg" variant="danger" onClick={confirmerDelete} block>
+                Supprimer l'utilisateur
+              </Button>
+            )}
         </div>
       </Form.Group>
     </Form>

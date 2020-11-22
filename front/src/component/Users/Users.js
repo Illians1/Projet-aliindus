@@ -9,6 +9,7 @@ function Users(props) {
   const [affichageBloc, setAffichageBloc] = useState("");
   const [listUsers, setListUsers] = useState([]);
   const [errorAccount, setErrorAccount] = useState("");
+  const [errorPassword, setErrorPassword] = useState("");
 
   useEffect(() => {
     const dataUsers = async () => {
@@ -53,6 +54,8 @@ function Users(props) {
     setFormData,
     errorAccount,
     setErrorAccount,
+    errorPassword,
+    setErrorPassword,
   };
 
   return (
