@@ -45,66 +45,66 @@ function FormBL(props) {
     });
     affichageBloc === ""
       ? axios
-          .post(
-            `http://localhost:3001/api/bl/new/`,
-            {
-              client: client,
-              date: formData.date,
-              infos: formData.infos,
-              numCarnet: formData.numCarnet,
-              numBL: formData.numBL,
-              user: user,
+        .post(
+          `http://localhost:3001/api/bl/new/`,
+          {
+            client: client,
+            date: formData.date,
+            infos: formData.infos,
+            numCarnet: formData.numCarnet,
+            numBL: formData.numBL,
+            user: user,
+          },
+          {
+            headers: {
+              Authorization: localStorage.getItem("user"),
             },
-            {
-              headers: {
-                Authorization: localStorage.getItem("user"),
-              },
+          }
+        )
+        .then((res) => {
+          window.location.reload();
+        })
+        .catch((error) => {
+          if (error.response && error.response.data.authError) {
+            if (localStorage.getItem("user")) {
+              localStorage.removeItem("user");
             }
-          )
-          .then((res) => {
             window.location.reload();
-          })
-          .catch((error) => {
-            if (error.response && error.response.data.authError) {
-              if (localStorage.getItem("user")) {
-                localStorage.removeItem("user");
-              }
-              window.location.reload();
-            } else if (error.response && error.response.data.errorClient) {
-              setErrorClient(error.response.data.errorClient);
-            }
-          })
+          } else if (error.response && error.response.data.errorClient) {
+            setErrorClient(error.response.data.errorClient);
+          }
+        })
       : axios
-          .put(
-            `http://localhost:3001/api/bl/modify/`,
-            {
-              id: id,
-              client: client,
-              date: formData.date,
-              infos: formData.infos,
-              numCarnet: formData.numCarnet,
-              numBL: formData.numBL,
-              user: user,
+        .put(
+          `http://localhost:3001/api/bl/modify/`,
+          {
+            id: id,
+            client: client,
+            date: formData.date,
+            infos: formData.infos,
+            numCarnet: formData.numCarnet,
+            numBL: formData.numBL,
+            user: user,
+          },
+          {
+            headers: {
+              Authorization: localStorage.getItem("user"),
             },
-            {
-              headers: {
-                Authorization: localStorage.getItem("user"),
-              },
+          }
+        )
+        .then(() => {
+          window.location.reload();
+        })
+        .catch((error) => {
+          if (error.response && error.response.data.authError) {
+            if (localStorage.getItem("user")) {
+              localStorage.removeItem("user");
             }
-          )
-          .then(() => {
             window.location.reload();
-          })
-          .catch((error) => {
-            if (error.response && error.response.data.authError) {
-              if (localStorage.getItem("user")) {
-                localStorage.removeItem("user");
-              }
-              window.location.reload();
-            } else if (error.response && error.response.data.errorClient) {
-              setErrorClient(error.response.data.errorClient);
-            }
-          });
+          } else if (error.response && error.response.data.errorClient) {
+            setErrorClient(error.response.data.errorClient);
+          }
+        });
   };
 
   const confirmerDelete = () => {
@@ -185,18 +185,20 @@ function FormBL(props) {
           />
         </Form.Group>
       </Form.Row>
-      <Form.Group as={Row}>
-        <Form.Label>Infos complémentaires :</Form.Label>
-        <Form.Control
-          value={formData.infos}
-          className="border border-secondary"
-          rows={3}
-          as="textarea"
-          placeholder="Infos complémentaires"
-          name="infos"
-          onChange={newFormData}
-        />
-      </Form.Group>
+      <Form.Row>
+        <Form.Group as={Col}>
+          <Form.Label>Infos complémentaires :</Form.Label>
+          <Form.Control
+            value={formData.infos}
+            className="border border-secondary"
+            rows={3}
+            as="textarea"
+            placeholder="Infos complémentaires"
+            name="infos"
+            onChange={newFormData}
+          />
+        </Form.Group>
+      </Form.Row>
       <Form.Group
         as={Row}
         className="d-flex justify-content-center text-center"
@@ -208,10 +210,10 @@ function FormBL(props) {
           {affichageBloc === "" ? (
             ""
           ) : (
-            <Button size="lg" variant="danger" onClick={confirmerDelete} block>
-              Supprimer le BL
-            </Button>
-          )}
+              <Button size="lg" variant="danger" onClick={confirmerDelete} block>
+                Supprimer le BL
+              </Button>
+            )}
         </div>
       </Form.Group>
     </Form>

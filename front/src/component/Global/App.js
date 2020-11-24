@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import Header from "./Header/Header";
 import Footer from "./Footer";
 import BonLivraison from "../BL/BonLivraison";
@@ -9,6 +9,8 @@ import ScrollToTop from "./ScrollToTop";
 import Clients from "../Clients/Clients";
 
 function App() {
+  const [pseudo, setPseudo] = useState("");
+
   const isAuthenticated = () => {
     return localStorage.getItem("user") ? true : false;
   };
@@ -28,7 +30,7 @@ function App() {
     >
       <BrowserRouter>
         <ScrollToTop />
-        <Header isAuthenticated={isAuthenticated} isAdmin={isAdmin} />
+        <Header isAuthenticated={isAuthenticated} isAdmin={isAdmin} pseudo={pseudo} setPseudo={setPseudo} />
         <div className="row main-element m-0">
           <Switch>
             <Route exact path="/" render={() => <Redirect to="/bl" />} />
@@ -38,8 +40,8 @@ function App() {
                 isAuthenticated() === true ? (
                   <Redirect to="/bl" />
                 ) : (
-                  <Auth {...props} />
-                )
+                    <Auth {...props} setPseudo={setPseudo} />
+                  )
               }
             />
             <Route
@@ -48,8 +50,8 @@ function App() {
                 isAuthenticated() === true ? (
                   <BonLivraison {...props} />
                 ) : (
-                  <Redirect to="/auth" />
-                )
+                    <Redirect to="/auth" />
+                  )
               }
             />
             <Route
@@ -58,8 +60,8 @@ function App() {
                 isAuthenticated() === true ? (
                   <Clients {...props} />
                 ) : (
-                  <Redirect to="/auth" />
-                )
+                    <Redirect to="/auth" />
+                  )
               }
             />
             <Route
@@ -68,8 +70,8 @@ function App() {
                 isAdmin() === true ? (
                   <Users {...props} />
                 ) : (
-                  <Redirect to="/auth" />
-                )
+                    <Redirect to="/auth" />
+                  )
               }
             />
           </Switch>

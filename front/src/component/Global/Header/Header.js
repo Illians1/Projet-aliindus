@@ -1,13 +1,24 @@
-import React from "react";
+import React, { useEffect } from "react";
 import HeaderNavBar from "./HeaderNavBar";
 import { Link } from "react-router-dom";
 import Button from "react-bootstrap/Button";
 
 function Header(props) {
+  const pseudo = props.pseudo;
+  const setPseudo = props.setPseudo;
   const isAuthenticated = props.isAuthenticated;
   const isAdmin = props.isAdmin;
+
+  useEffect(() => {
+    if (localStorage.getItem("user") !== null) {
+      const user = JSON.parse(localStorage.getItem("user"));
+      setPseudo(user.pseudo);
+    }
+  }, []);
+
   const disconnect = () => {
     localStorage.removeItem("user");
+    setPseudo("");
     window.location.reload();
   };
 
@@ -23,10 +34,11 @@ function Header(props) {
           Gestion des bons de livraison
         </span>
         {isAuthenticated() === true ? (
-          <div className="col-12 col-xl-3 d-flex justify-content-center margin-header button-header align-items-center">
-            <Button onClick={disconnect} variant="secondary">
+          <div className="row col-12 col-xl-3 d-flex justify-content-center margin-header button-header align-items-center">
+            {pseudo !== "" ? <span className="col-12 text-center">Connecté en tant que     <strong>{" " + pseudo}</strong></span> : ""}
+            <div className="col-12 d-flex justify-content-center"><Button onClick={disconnect} variant="secondary">
               Se déconnecter
-            </Button>
+            </Button></div>
           </div>
         ) : (
             ""

@@ -115,6 +115,7 @@ exports.login = (req, res, next) => {
             }
             return res.status(200).json({
               userRole: results[0].role,
+              pseudo: results[0].pseudo,
               token: jwt.sign(
                 { userRole: results[0].role },
                 "DYikuzdkiu_//fj^^_fbfkuqjzhjhmpoiUKFHklfkhuf_zhukgzdilqhbdkqd!fesufghsp",
@@ -158,7 +159,7 @@ exports.modifyUser = (req, res, next) => {
   const role = req.body.role;
   if (password1 !== password2) {
     res.status(403).json({
-      errorMessage: "Les deux mots de passe ne correspondent pas !",
+      errorPassword: "Les deux mots de passe ne correspondent pas !",
     });
   } else {
     bcrypt.hash(password1, 10, (err, hash) => {

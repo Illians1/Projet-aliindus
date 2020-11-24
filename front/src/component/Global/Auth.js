@@ -2,10 +2,12 @@ import React, { useState } from "react";
 import axios from "axios";
 import Form from "react-bootstrap/Form";
 
-function Auth() {
+function Auth(props) {
   const [formData, setFormData] = useState({ login: "", password: "" });
   const [errorLogin, setErrorLogin] = useState("");
   const [errorPassword, setErrorPassword] = useState("");
+
+  const setPseudo = props.setPseudo;
 
   const newFormData = (e) => {
     let newForm = Object.assign({}, formData);
@@ -25,6 +27,7 @@ function Auth() {
       .then((res) => {
         console.log(res.data);
         localStorage.setItem("user", JSON.stringify(res.data));
+        setPseudo(res.data.pseudo);
         window.location.reload();
       })
       .catch((error) => {
