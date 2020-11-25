@@ -46,8 +46,8 @@ function ListBL() {
 
   const changeTitleBL = (index) => {
     return triBL === "date"
-      ? affichageBL[index].date === affichageBL[index - 1].date
-      : affichageBL[index].nomClient === affichageBL[index - 1].nomClient;
+      ? affichageBL[index].date === affichageBL[index - 1].date ? true : false
+      : affichageBL[index].nomClient === affichageBL[index - 1].nomClient ? true : false;
   };
 
   return (
@@ -58,35 +58,35 @@ function ListBL() {
             changeTitleBL(index) ? (
               ""
             ) : (
-              <TitleListBL item={item} />
-            )
+                <TitleListBL item={item} />
+              )
           ) : (
-            <TitleListBL item={item} />
-          )}
+              <TitleListBL item={item} />
+            )}
           <ul className="list-historique">
             {item.visible === false ? (
               ""
             ) : (
-              <li className="list-historique">
-                {triBL === "date" ? (
-                  <>
-                    <NumeroCarnetBL item={item} />
-                    <NumeroBLBL item={item} />
-                    <ClientBL item={item} />
-                  </>
-                ) : (
-                  <>
-                    {" "}
-                    <DateCreationBL item={item} />
-                    <NumeroCarnetBL item={item} />
-                    <NumeroBLBL item={item} />{" "}
-                  </>
-                )}
-                <UserBL item={item} />
-                <ValidBL item={item} />
-                <ModifyBL item={item} />
-              </li>
-            )}
+                <li className="list-historique">
+                  {triBL === "date" ? (
+                    <>
+                      <NumeroCarnetBL item={item} />
+                      <NumeroBLBL item={item} />
+                      <ClientBL item={item} />
+                    </>
+                  ) : (
+                      <>
+                        {" "}
+                        <DateCreationBL item={item} />
+                        <NumeroCarnetBL item={item} />
+                        <NumeroBLBL item={item} />{" "}
+                      </>
+                    )}
+                  <UserBL item={item} />
+                  <ValidBL item={item} />
+                  <ModifyBL item={item} />
+                </li>
+              )}
           </ul>
         </div>
       ))}

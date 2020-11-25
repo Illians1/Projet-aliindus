@@ -33,7 +33,7 @@ exports.getAllBL = (req, res, next) => {
 
 exports.getAllBLByClient = (req, res, next) => {
   connection.query(
-    "SELECT bl.id, bl.date, bl.numeroCarnet, bl.numeroBl, bl.valide, bl.info, clients.code AS codeClient, clients.nom AS nomClient, utilisateurs.pseudo FROM bl LEFT JOIN clients ON bl.codeClient = clients.code LEFT JOIN utilisateurs ON bl.idUtilisateur = utilisateurs.id ORDER BY nomClient, bl.date, bl.numeroCarnet, bl.numeroBl",
+    "SELECT bl.id, bl.date, bl.numeroCarnet, bl.numeroBl, bl.valide, bl.info, clients.code AS codeClient, clients.nom AS nomClient, utilisateurs.pseudo FROM bl LEFT JOIN clients ON bl.codeClient = clients.code LEFT JOIN utilisateurs ON bl.pseudoUtilisateur = utilisateurs.pseudo ORDER BY nomClient, bl.date, bl.numeroCarnet, bl.numeroBl",
     function (error, results, fields) {
       // error will be an Error if one occurred during the query
       // results will contain the results of the query
