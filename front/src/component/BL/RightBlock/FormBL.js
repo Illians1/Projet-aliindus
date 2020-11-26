@@ -30,10 +30,7 @@ function FormBL(props) {
     let id = affichageBloc.id;
     let client = "";
     listClients.forEach((element) => {
-      if (
-        formData.client.split(" ")[formData.client.split(" ").length - 1] ===
-        element.code
-      ) {
+      if (formData.client.split(" ")[formData.client.split(" ").length - 1] === element.code) {
         client = element.code;
       }
     });

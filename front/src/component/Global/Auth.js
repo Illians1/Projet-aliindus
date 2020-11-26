@@ -25,7 +25,6 @@ function Auth(props) {
         password: formData.password,
       })
       .then((res) => {
-        console.log(res.data);
         localStorage.setItem("user", JSON.stringify(res.data));
         setPseudo(res.data.pseudo);
         window.location.reload();

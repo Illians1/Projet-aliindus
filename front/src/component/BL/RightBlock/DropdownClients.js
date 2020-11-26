@@ -2,6 +2,7 @@ import React, { useContext } from "react";
 import Form from "react-bootstrap/Form";
 import Col from "react-bootstrap/Col";
 import ContextBL from "../../Context/ContextBL";
+import { Link } from "react-router-dom";
 
 function DropdownClients(props) {
   const { listClients, errorClient } = useContext(ContextBL);
@@ -28,10 +29,10 @@ function DropdownClients(props) {
         {errorClient !== "" ? (
           <Form.Label className="date-BL">{errorClient}</Form.Label>
         ) : (
-          ""
-        )}
+            ""
+          )}
         <div className="d-flex justify-content-center">
-          <a href="google.com">Créer un nouveau client</a>
+          <Link to="/clients">Créer un nouveau client</Link>
         </div>
       </div>
     </Form.Group>

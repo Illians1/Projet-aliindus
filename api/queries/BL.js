@@ -141,7 +141,7 @@ exports.newBL = (req, res, next) => {
             errorClient: "Le client n'existe pas !",
           });
         } else {
-          res.status(201).json({
+          res.status(200).json({
             message: sql,
           });
         }
